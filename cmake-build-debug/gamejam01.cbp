@@ -5,13 +5,43 @@
 		<Option title="gamejam01"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\engine\;CMake Files\engine\external\;CMake Files\engine\external\SDL\;CMake Files\engine\external\SDL\cmake\;CMake Files\engine\external\SDL\include\;CMake Files\engine\external\glm\;CMake Files\engine\external\glm\glm\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
 					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
 					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -37,13 +67,27 @@
 					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="gamejam01">
-				<Option output="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/gamejam01" prefix_auto="0" extension_auto="0"/>
+			<Target title="install/local">
 				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gamejam01">
+				<Option output="/Users/paulmauviel/mauville/gamejam01/dist/Darwin/gamejam01" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/dist/Darwin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/hangout-engine"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/include"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/glm"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/glm"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
@@ -58,12 +102,16 @@
 				</MakeCommands>
 			</Target>
 			<Target title="gamejam01/fast">
-				<Option output="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/gamejam01" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug"/>
+				<Option output="/Users/paulmauviel/mauville/gamejam01/dist/Darwin/gamejam01" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/dist/Darwin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/hangout-engine"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/include"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/glm"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/glm"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
@@ -77,12 +125,1032 @@
 					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="hangout-engine">
+				<Option output="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/libhangout-engine.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/include"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/glm"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/src"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/OpenGL::GL"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/SDL2main"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/SDL2-static"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/glm"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/Library/Frameworks/OpenGL.framework"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 hangout-engine"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="hangout-engine/fast">
+				<Option output="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/libhangout-engine.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/include"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/glm"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/src"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/OpenGL::GL"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/SDL2main"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/SDL2-static"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/glm"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/Library/Frameworks/OpenGL.framework"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 hangout-engine/fast"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uninstall">
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 uninstall"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL2">
+				<Option output="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/libSDL2-2.0d.dylib" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSING_GENERATED_CONFIG_H"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/include"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 SDL2"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL2/fast">
+				<Option output="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/libSDL2-2.0d.dylib" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSING_GENERATED_CONFIG_H"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/include"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 SDL2/fast"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL2-static">
+				<Option output="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/libSDL2d.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSING_GENERATED_CONFIG_H"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/include"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 SDL2-static"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL2-static/fast">
+				<Option output="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/libSDL2d.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSING_GENERATED_CONFIG_H"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/include"/>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 SDL2-static/fast"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL2main">
+				<Option output="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/libSDL2maind.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 SDL2main"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SDL2main/fast">
+				<Option output="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/libSDL2maind.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 SDL2main/fast"/>
+					<CompileFile command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j10 -f &quot;/Users/paulmauviel/mauville/gamejam01/cmake-build-debug/engine/external/SDL/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 		</Build>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/SDL.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/SDL_assert.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/SDL_dataqueue.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/SDL_dataqueue.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/SDL_error.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/SDL_hints.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/SDL_log.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/atomic/SDL_atomic.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/atomic/SDL_spinlock.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/SDL_audio.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/SDL_audiocvt.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/SDL_audiodev.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/SDL_audiotypecvt.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/SDL_mixer.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/SDL_wave.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/SDL_wave.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/coreaudio/SDL_coreaudio.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/coreaudio/SDL_coreaudio.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/disk/SDL_diskaudio.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/disk/SDL_diskaudio.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/dummy/SDL_dummyaudio.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/audio/dummy/SDL_dummyaudio.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/cpuinfo/SDL_cpuinfo.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/dynapi/SDL_dynapi.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/dynapi/SDL_dynapi.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/SDL_clipboardevents.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/SDL_displayevents.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/SDL_dropevents.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/SDL_events.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/SDL_gesture.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/SDL_keyboard.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/SDL_mouse.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/SDL_quit.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/SDL_touch.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/SDL_windowevents.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/imKStoUCS.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/events/imKStoUCS.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/file/SDL_rwops.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/file/cocoa/SDL_rwopsbundlesupport.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/file/cocoa/SDL_rwopsbundlesupport.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/filesystem/cocoa/SDL_sysfilesystem.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/haptic/SDL_haptic.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/haptic/darwin/SDL_syshaptic.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/hidapi/SDL_hidapi.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/joystick/SDL_gamecontroller.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/joystick/SDL_joystick.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/joystick/darwin/SDL_iokitjoystick.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/joystick/iphoneos/SDL_mfijoystick.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/joystick/virtual/SDL_virtualjoystick.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/e_atan2.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/e_exp.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/e_fmod.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/e_log.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/e_log10.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/e_pow.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/e_rem_pio2.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/e_sqrt.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/k_cos.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/k_rem_pio2.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/k_sin.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/k_tan.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/s_atan.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/s_copysign.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/s_cos.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/s_fabs.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/s_floor.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/s_scalbn.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/s_sin.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/libm/s_tan.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/loadso/dlopen/SDL_sysloadso.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/locale/SDL_locale.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/locale/macosx/SDL_syslocale.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/main/dummy/SDL_dummy_main.c">
+			<Option target="SDL2main"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/misc/SDL_url.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/misc/macosx/SDL_sysurl.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/power/SDL_power.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/power/macosx/SDL_syspower.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/SDL_d3dmath.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/SDL_d3dmath.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/SDL_render.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/SDL_yuv_sw.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/direct3d/SDL_render_d3d.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/direct3d/SDL_shaders_d3d.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/direct3d/SDL_shaders_d3d.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/direct3d11/SDL_render_d3d11.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/direct3d11/SDL_shaders_d3d11.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/direct3d11/SDL_shaders_d3d11.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/metal/SDL_render_metal.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/opengl/SDL_render_gl.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/opengl/SDL_shaders_gl.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/opengl/SDL_shaders_gl.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/opengles/SDL_render_gles.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/opengles2/SDL_render_gles2.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/opengles2/SDL_shaders_gles2.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/opengles2/SDL_shaders_gles2.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/psp/SDL_render_psp.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_blendfillrect.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_blendfillrect.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_blendline.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_blendline.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_blendpoint.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_blendpoint.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_drawline.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_drawline.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_drawpoint.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_drawpoint.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_render_sw.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_rotate.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_rotate.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_triangle.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/software/SDL_triangle.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/vitagxm/SDL_render_vita_gxm.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/vitagxm/SDL_render_vita_gxm_memory.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/vitagxm/SDL_render_vita_gxm_memory.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/vitagxm/SDL_render_vita_gxm_tools.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/render/vitagxm/SDL_render_vita_gxm_tools.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/sensor/SDL_sensor.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/sensor/dummy/SDL_dummysensor.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/sensor/dummy/SDL_dummysensor.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/stdlib/SDL_crc32.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/stdlib/SDL_getenv.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/stdlib/SDL_iconv.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/stdlib/SDL_malloc.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/stdlib/SDL_qsort.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/stdlib/SDL_stdlib.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/stdlib/SDL_string.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/stdlib/SDL_strtokr.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/thread/SDL_thread.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/thread/pthread/SDL_syscond.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/thread/pthread/SDL_sysmutex.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/thread/pthread/SDL_syssem.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/thread/pthread/SDL_systhread.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/thread/pthread/SDL_systls.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/timer/SDL_timer.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/timer/unix/SDL_systimer.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_RLEaccel.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit_0.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit_1.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit_A.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit_N.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit_auto.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit_auto.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit_copy.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit_copy.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit_slow.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_blit_slow.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_bmp.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_clipboard.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_egl.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_fillrect.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_pixels.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_rect.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_shape.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_stretch.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_surface.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_video.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_vulkan_utils.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/SDL_yuv.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoaclipboard.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoaclipboard.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoaevents.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoaevents.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoakeyboard.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoakeyboard.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoamessagebox.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoamessagebox.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoametalview.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoametalview.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoamodes.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoamodes.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoamouse.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoamouse.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoaopengl.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoaopengl.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoaopengles.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoaopengles.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoashape.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoashape.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoavideo.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoavideo.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoavulkan.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoavulkan.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoawindow.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/cocoa/SDL_cocoawindow.m">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/dummy/SDL_nullevents.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/dummy/SDL_nullframebuffer.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/dummy/SDL_nullvideo.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/dummy/SDL_nullvideo.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/yuv2rgb/yuv_rgb.c">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/src/video/yuv2rgb/yuv_rgb.h">
+			<Option target="SDL2"/>
+			<Option target="SDL2-static"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/src/platform/game.cpp">
+			<Option target="hangout-engine"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/src/platform/sdl_window.cpp">
+			<Option target="hangout-engine"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/src/platform/sdl_window.h">
+			<Option target="hangout-engine"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/src/rendering/open_gl_renderer.cpp">
+			<Option target="hangout-engine"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/src/rendering/open_gl_renderer.h">
+			<Option target="hangout-engine"/>
+		</Unit>
 		<Unit filename="/Users/paulmauviel/mauville/gamejam01/main.cpp">
 			<Option target="gamejam01"/>
 		</Unit>
 		<Unit filename="/Users/paulmauviel/mauville/gamejam01/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\engine\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\engine\external\SDL\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/SDL2.spec.in">
+			<Option virtualFolder="CMake Files\engine\external\SDL\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files\engine\external\SDL\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/sdl2-config.in">
+			<Option virtualFolder="CMake Files\engine\external\SDL\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/sdl2.pc.in">
+			<Option virtualFolder="CMake Files\engine\external\SDL\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/cmake/macros.cmake">
+			<Option virtualFolder="CMake Files\engine\external\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/cmake/sdlchecks.cmake">
+			<Option virtualFolder="CMake Files\engine\external\SDL\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/include/SDL_config.h.cmake">
+			<Option virtualFolder="CMake Files\engine\external\SDL\include\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/SDL/include/SDL_revision.h.cmake">
+			<Option virtualFolder="CMake Files\engine\external\SDL\include\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\engine\external\glm\"/>
+		</Unit>
+		<Unit filename="/Users/paulmauviel/mauville/gamejam01/engine/external/glm/glm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\engine\external\glm\glm\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

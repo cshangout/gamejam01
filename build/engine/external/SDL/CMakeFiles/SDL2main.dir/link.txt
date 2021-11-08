@@ -1,0 +1,2 @@
+/Users/paulmauviel/mauville/gamejam01/engine/external/emsdk/upstream/emscripten/emar qc libSDL2main.a CMakeFiles/SDL2main.dir/src/main/dummy/SDL_dummy_main.c.o
+/Users/paulmauviel/mauville/gamejam01/engine/external/emsdk/upstream/emscripten/emranlib libSDL2main.a

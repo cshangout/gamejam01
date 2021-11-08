@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libhangout-engine.a CMakeFiles/hangout-engine.dir/src/platform/game.cpp.o CMakeFiles/hangout-engine.dir/src/platform/sdl_window.cpp.o CMakeFiles/hangout-engine.dir/src/rendering/open_gl_renderer.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libhangout-engine.a

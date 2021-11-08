@@ -1,0 +1,2 @@
+/Users/paulmauviel/mauville/gamejam01/engine/external/emsdk/upstream/emscripten/emar qc libhangout-engine.a CMakeFiles/hangout-engine.dir/src/platform/game.cpp.o CMakeFiles/hangout-engine.dir/src/platform/sdl_window.cpp.o CMakeFiles/hangout-engine.dir/src/rendering/open_gl_renderer.cpp.o
+/Users/paulmauviel/mauville/gamejam01/engine/external/emsdk/upstream/emscripten/emranlib libhangout-engine.a
