@@ -26,6 +26,9 @@ namespace HE {
     }
 
     void SDLWindow::OpenWindow(WindowData data) {
+#if __EMSCRIPTEN__
+      _managed = true;
+#endif
         if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
             throw std::runtime_error("Failed to initialize SDL!");
         }
@@ -53,5 +56,11 @@ namespace HE {
 
     void SDLWindow::SwapBuffer() {
         SDL_GL_SwapWindow(_window);
+    }
+
+    void SDLWindow::SetManagedFunction(callback function) {
+#if __EMSCRIPTEN__
+        emscripten_set_main_loop(function, 0, 1);
+#endif
     }
 }

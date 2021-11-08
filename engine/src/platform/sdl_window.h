@@ -23,6 +23,7 @@ namespace HE {
 
         void MakeContextCurrent() override;
         void SwapBuffer() override;
+        void SetManagedFunction(callback) override;
     private:
         SDL_Window* _window = nullptr;
         SDL_GLContext _context;

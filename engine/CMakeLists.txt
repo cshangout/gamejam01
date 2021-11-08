@@ -1,17 +1,10 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.10)
 project(hangout-engine)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Some build settings required for Javascript build
-if( ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
-    set(CMAKE_EXECUTABLE_SUFFIX ".html")
-    set(USE_FLAGS "-s USE_SDL=2 -s USE_FREETYPE=1 -s MAX_WEBGL_VERSION=2 -s MIN_WEBGL_VERSION=2 --preload-file ${PROJECT_SOURCE_DIR}/assets@/assets")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${USE_FLAGS}")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${USE_FLAGS}")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${USE_FLAGS}")
-    set(CMAKE_EXECUTABLE_SUFFIX .html)
-endif()
+# Outputs builds to the /dist directory
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/dist/${CMAKE_SYSTEM_NAME})
 
 add_subdirectory(external/SDL)
 add_subdirectory(external/glm)
@@ -46,3 +39,10 @@ target_link_libraries(${PROJECT_NAME}
         SDL2main
         SDL2-static
 )
+
+if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+    # Copy assets into build directory -- used for non-emscripten builds
+    add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${ASSETS_DIR}/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
+endif()

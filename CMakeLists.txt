@@ -1,9 +1,22 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.4)
 project(gamejam01)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dist/${CMAKE_SYSTEM_NAME})
+# This directory is the assets directory we're going to copy to our build folder
+set(ASSETS_DIR ${CMAKE_SOURCE_DIR}/assets)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/dist/${CMAKE_SYSTEM_NAME})
+
+# Some build settings required for Javascript build
+if( ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+    set(CMAKE_EXECUTABLE_SUFFIX ".html")
+    set(USE_FLAGS "-s USE_SDL=2 -s USE_FREETYPE=1 -s MAX_WEBGL_VERSION=2 -s MIN_WEBGL_VERSION=2 --preload-file ${ASSETS_DIR}@/assets")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${USE_FLAGS}")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${USE_FLAGS}")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${USE_FLAGS}")
+    set(CMAKE_EXECUTABLE_SUFFIX .html)
+endif()
 
 add_subdirectory(engine)
 
@@ -18,8 +31,3 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC
         hangout-engine
 )
-
-# Copy assets into build directory
-add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${PROJECT_SOURCE_DIR}/assets/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)

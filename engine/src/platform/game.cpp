@@ -2,12 +2,15 @@
 #include <hangout_engine/service_locator.h>
 #include <rendering/open_gl_renderer.h>
 #include "sdl_window.h"
-
 namespace HE {
-    Game::Game() : Game("New CS Hangouts Game Engine") {}
+    Game* Game::_instance = nullptr;
+
+    Game::Game() : Game("New CS Hangouts Game Engine") {
+    }
 
     Game::Game(std::string windowTitle) : _title(std::move(windowTitle)), _running(false) {
         initializeServices();
+        _instance = this;
     }
 
     Game::~Game() {
@@ -17,18 +20,30 @@ namespace HE {
     void Game::Run() {
         _running = true;
 
-        while (_running) {
+        // Hook into managed loop here
+        if (ServiceLocator::GetWindow()->IsManagedGameLoop()) {
+            ServiceLocator::GetWindow()->SetManagedFunction(Game::gameLoop);
+        } else {
+            while (_instance->_running) {
+                gameLoop();
+            }
+        }
+    }
+
+    void Game::gameLoop() {
+        if (_instance != nullptr) {
             // If the X button was clicked, exit
             if (ServiceLocator::GetWindow()->Update()) {
-                _running = false;
-                continue;
+                _instance->_running = false;
+                return;
             }
-            ServiceLocator::GetRenderer()->BeginFrame(_clearColor);
 
-            PhysicsUpdate(0.0f);
-            Update(0.0f);
+            ServiceLocator::GetRenderer()->BeginFrame(_instance->_clearColor);
 
-            Render();
+            _instance->PhysicsUpdate(0.0f);
+            _instance->Update(0.0f);
+
+            _instance->Render();
 
             ServiceLocator::GetRenderer()->EndFrame();
         }

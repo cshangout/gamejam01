@@ -24,12 +24,15 @@ namespace HE {
 
     public:
         // For public variables (probably none)
+        static void gameLoop();
 
     protected:
-        glm::vec4 _clearColor {0.1f, 0.2f, 0.3f, 1.f};
+        glm::vec4 _clearColor { 0.1f, 0.2f, 0.3f, 1.f };
     private:
         std::string _title;
         bool _running;
+
+        static Game* _instance;
     };
 
     extern Game *CreateGame();
