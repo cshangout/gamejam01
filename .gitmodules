@@ -1,0 +1,9 @@
+[submodule "engine/external/SDL"]
+	path = engine/external/SDL
+	url = git@github.com:libsdl-org/SDL.git
+[submodule "engine/external/glm"]
+	path = engine/external/glm
+	url = git@github.com:g-truc/glm.git
+[submodule "engine/external/emsdk"]
+	path = engine/external/emsdk
+	url = git@github.com:emscripten-core/emsdk.git
