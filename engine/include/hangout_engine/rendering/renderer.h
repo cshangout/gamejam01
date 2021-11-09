@@ -1,5 +1,12 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <memory>
+
+#include "buffer.h"
+#include "shader.h"
+#include "vertex_array.h"
+#include "renderer_api.h"
+#include "render_command.h"
 
 namespace HE {
     struct RendererSettings {
@@ -11,8 +18,16 @@ namespace HE {
         virtual ~Renderer() = default;
         virtual void Init(RendererSettings) = 0;
         virtual void Shutdown() = 0;
-        virtual void BeginFrame(glm::vec4) = 0;
-        virtual void EndFrame() = 0;
 
+        // TODO: Scene settings. Camera, lights, environment
+        virtual void BeginScene() = 0;
+        virtual void Submit(const std::shared_ptr<VertexArray>&) = 0;
+        virtual void EndScene() = 0;
+
+        virtual std::shared_ptr<VertexBuffer> CreateBuffer() = 0;
+        virtual std::shared_ptr<Shader> CreateShader() = 0;
+        virtual std::shared_ptr<VertexArray> CreateVertexArray() = 0;
+
+        virtual RenderCommand GetRenderCommand() = 0;
     };
 }

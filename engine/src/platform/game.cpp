@@ -1,6 +1,6 @@
 #include <hangout_engine/platform/game.h>
 #include <hangout_engine/service_locator.h>
-#include <rendering/open_gl_renderer.h>
+#include <rendering/opengl/open_gl_renderer.h>
 #include "sdl_window.h"
 namespace HE {
     Game* Game::_instance = nullptr;
@@ -19,7 +19,7 @@ namespace HE {
 
     void Game::Run() {
         _running = true;
-
+        Init();
         // Hook into managed loop here
         if (ServiceLocator::GetWindow()->IsManagedGameLoop()) {
             ServiceLocator::GetWindow()->SetManagedFunction(Game::gameLoop);
@@ -38,14 +38,11 @@ namespace HE {
                 return;
             }
 
-            ServiceLocator::GetRenderer()->BeginFrame(_instance->_clearColor);
-
             _instance->PhysicsUpdate(0.0f);
             _instance->Update(0.0f);
 
             _instance->Render();
 
-            ServiceLocator::GetRenderer()->EndFrame();
         }
     }
 
@@ -58,6 +55,7 @@ namespace HE {
         });
 
         ServiceLocator::Provide(new OpenGLRenderer());
+        ServiceLocator::GetRenderer()->Init({});
     }
 
     void Game::shutdownServices() {}

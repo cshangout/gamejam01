@@ -14,6 +14,7 @@ namespace HE {
         void Run();
 
     protected:
+        virtual void Init() {};
         virtual void PhysicsUpdate(float deltaTime) {};
         virtual void Update(float deltaTime) {};
         virtual void Render() {};

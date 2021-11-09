@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     if platform == "windows":
         with pushd(build_path):
-            run_command(build_command_list([os.path.join(path_to_emsdk,'emsdk'), 'activate', 'latest'], ['emcmake', 'cmake', '..', '.']))
+            run_command(build_command_list([os.path.join(path_to_emsdk,'emsdk'), 'activate', 'latest'], ['emcmake', 'cmake', '..', '.' ]))
             run_command(['ninja'])
     elif platform == "linux" or platform == "darwin":
         run_command(build_command_list(['pushd', path_to_emsdk], ['.', os.path.join(path_to_emsdk,'emsdk_env.sh')], ['popd'],

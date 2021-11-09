@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 project(hangout-engine)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -8,12 +8,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/dist/${CMAKE_SYSTEM_NAME}
 
 add_subdirectory(external/SDL)
 add_subdirectory(external/glm)
+add_subdirectory(external/glad)
 
 find_package(OpenGL REQUIRED)
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
-add_library(${PROJECT_NAME} STATIC ${SOURCES})
+add_library(${PROJECT_NAME} STATIC ${SOURCES} include/hangout_engine/rendering/types.h src/rendering/opengl/open_gl_buffer.cpp src/rendering/opengl/open_gl_buffer.h)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(OPENGL_LIBRARY OpenGL::GL)
@@ -24,20 +25,26 @@ target_include_directories(${PROJECT_NAME}
         $<INSTALL_INTERFACE:include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         glm
+        glad
+
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
-        ${OPENGL_LIBRARY}
         SDL2main
         SDL2-static
+        ${OPENGL_LIBRARY}
+
 )
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         glm
+        glad
+
     PRIVATE
-        ${OPENGL_LIBRARY}
         SDL2main
         SDL2-static
+        ${OPENGL_LIBRARY}
+
 )
 
 if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")

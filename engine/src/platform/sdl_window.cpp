@@ -3,6 +3,7 @@
 //
 
 #include "sdl_window.h"
+
 #include <iostream>
 #include <cstddef>
 
@@ -44,6 +45,7 @@ namespace HE {
                                    SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
 
         _context = SDL_GL_CreateContext(_window);
+        MakeContextCurrent();
     }
 
     SDLWindow::~SDLWindow() {
