@@ -1,6 +1,12 @@
 #pragma once
 #include <string>
 
+#if !__EMSCRIPTEN__
+#define HE_SHADER_VERSION_STRING "#version 330 core\n"
+#else
+#define HE_SHADER_VERSION_STRING "#version 300 es\n"
+#endif
+
 namespace HE {
     class Shader {
     public:

@@ -30,6 +30,7 @@ namespace HE {
 #if __EMSCRIPTEN__
       _managed = true;
 #endif
+
         if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
             throw std::runtime_error("Failed to initialize SDL!");
         }
@@ -44,6 +45,11 @@ namespace HE {
                                    width, height,
                                    SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
 
+#if !__EMSCRIPTEN__
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+#endif
         _context = SDL_GL_CreateContext(_window);
         MakeContextCurrent();
     }
