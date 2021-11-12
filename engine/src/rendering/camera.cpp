@@ -34,4 +34,14 @@ namespace HE {
     void PerspectiveCamera::recalculateViewMatrix() {
         Camera::recalculateViewMatrix();
     }
+
+    void PerspectiveCamera::LookAt(const glm::vec3& lookAt) {
+        _viewMatrix = glm::lookAt(
+            _position,
+            lookAt,
+            glm::vec3(0.f, 1.f, 0.f)
+        );
+
+        recalculateViewMatrix();
+    }
 }

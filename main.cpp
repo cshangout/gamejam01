@@ -10,15 +10,18 @@ class GameJamProject : public HE::Game {
 public:
     explicit GameJamProject(std::string title) :
         HE::Game(std::move(title)),
-        camera(HE::OrthographicCamera(HE::ServiceLocator::GetWindow()->GetAspectRatio())) {
+        camera(HE::PerspectiveCamera(45.f, HE::ServiceLocator::GetWindow()->GetAspectRatio(), 0.1f, 100.f)),
+        cameraOrtho(HE::ServiceLocator::GetWindow()->GetAspectRatio()){
 
     }
 
 protected:
     void Init() override {
         HE::ServiceLocator::GetWindow()->MakeContextCurrent();
-        camera.SetPosition({0.5, 0.5, 0});
-        camera.SetRotation(45.0f);
+        camera.SetPosition(glm::vec3(1.f,5.f,5));
+        camera.LookAt(glm::vec3(0,0,0));
+        cameraOrtho.SetPosition(glm::vec3(0.5f,0.f,0));
+
         setupScene();
     }
 
@@ -115,7 +118,8 @@ private:
     std::shared_ptr<HE::Shader> shader;
     std::shared_ptr<HE::VertexArray> vertexArray = nullptr;
 
-    HE::OrthographicCamera camera {1.33 };
+    HE::PerspectiveCamera camera;
+    HE::OrthographicCamera cameraOrtho;
 };
 
 HE::Game* HE::CreateGame() {

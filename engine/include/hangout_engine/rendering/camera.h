@@ -52,6 +52,7 @@ namespace HE {
     public:
         PerspectiveCamera(float fov, float aspect, float near, float far);
 
+        void LookAt(const glm::vec3& lookAt);
     protected:
         void recalculateViewMatrix() override;
     };
