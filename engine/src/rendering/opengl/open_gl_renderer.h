@@ -13,7 +13,9 @@ namespace HE {
         void Submit(const std::shared_ptr<VertexArray>&) override;
         void EndScene() override;
 
-        std::shared_ptr<VertexBuffer> CreateBuffer() override;
+        std::shared_ptr<VertexBuffer> CreateVertexBuffer() override;
+        std::shared_ptr<IndexBuffer> CreateIndexBuffer() override;
+
         std::shared_ptr<Shader> CreateShader() override;
         std::shared_ptr<VertexArray> CreateVertexArray() override;
 

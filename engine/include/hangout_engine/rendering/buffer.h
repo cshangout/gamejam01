@@ -126,7 +126,14 @@ namespace HE {
         virtual const BufferLayout& GetLayout() const = 0;
         virtual uint32_t GetCount() = 0;
         virtual void BindBufferLayout() = 0;
-    protected:
-        uint32_t _handle = 0;
+
+    };
+
+    class IndexBuffer {
+    public:
+        ~IndexBuffer() = default;
+        virtual void Bind() = 0;
+        virtual void UploadData(const std::vector<uint32_t>&) = 0;
+        virtual uint32_t GetCount() = 0;
     };
 }

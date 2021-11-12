@@ -20,6 +20,10 @@ namespace HE {
         inline void DrawArray(const std::shared_ptr<VertexArray>& vertexArray) {
             _rendererApi->DrawArray(vertexArray);
         }
+
+        inline void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) {
+            _rendererApi->DrawIndexed(vertexArray);
+        }
     private:
         RendererAPI* _rendererApi = nullptr;
     };

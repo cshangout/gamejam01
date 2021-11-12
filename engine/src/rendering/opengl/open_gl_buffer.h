@@ -3,10 +3,10 @@
 #include "open_gl_graphics.h"
 
 namespace HE {
-    class OpenGLBuffer : public VertexBuffer {
+    class OpenGLVertexBuffer : public VertexBuffer {
     public:
-        OpenGLBuffer();
-        ~OpenGLBuffer();
+        OpenGLVertexBuffer();
+        ~OpenGLVertexBuffer();
         void Bind() override;
 
         void UploadData(const std::vector<Vertex>& vertices) override;
@@ -17,6 +17,22 @@ namespace HE {
 
     private:
         BufferLayout _layout;
-        uint32_t _count;
+        uint32_t _count = 0;
+        uint32_t _handle = 0;
+    };
+
+    class OpenGLIndexBuffer : public IndexBuffer {
+    public:
+        OpenGLIndexBuffer();
+        ~OpenGLIndexBuffer();
+        void Bind() override;
+
+        void UploadData(const std::vector<uint32_t> &vector) override;
+
+        uint32_t GetCount() override;
+    private:
+        uint32_t _count = 0;
+        uint32_t _handle = 0;
+
     };
 }

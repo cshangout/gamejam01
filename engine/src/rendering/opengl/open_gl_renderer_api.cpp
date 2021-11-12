@@ -16,4 +16,8 @@ namespace HE {
             glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(vb->GetCount()));
         }
     }
+
+    void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vao) {
+        glDrawElements(GL_TRIANGLES, vao->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, 0);
+    }
 }

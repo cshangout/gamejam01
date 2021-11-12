@@ -25,4 +25,14 @@ namespace HE {
         Unbind();
     }
 
+    void OpenGLVertexArray::AddIndexBuffer(const std::shared_ptr<IndexBuffer> &indexBuffer) {
+        Bind();
+        indexBuffer->Bind();
+        _indexBuffer = indexBuffer;
+    }
+
+    const std::shared_ptr<IndexBuffer> &OpenGLVertexArray::GetIndexBuffer() {
+        return _indexBuffer;
+    }
+
 }

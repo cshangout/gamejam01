@@ -24,7 +24,8 @@ namespace HE {
         virtual void Submit(const std::shared_ptr<VertexArray>&) = 0;
         virtual void EndScene() = 0;
 
-        virtual std::shared_ptr<VertexBuffer> CreateBuffer() = 0;
+        virtual std::shared_ptr<VertexBuffer> CreateVertexBuffer() = 0;
+        virtual std::shared_ptr<IndexBuffer> CreateIndexBuffer() = 0;
         virtual std::shared_ptr<Shader> CreateShader() = 0;
         virtual std::shared_ptr<VertexArray> CreateVertexArray() = 0;
 

@@ -25,7 +25,7 @@ private:
     void setupScene() {
         std::vector<HE::Vertex> vertices = {
                 {
-                    .position = {-0.5f, -0.5f, 0.f},
+                    .position = {0.5f, 0.5f, 0.f},
                     .color = {1.f, 0.f, 0.f, 1.f}
                 },
                 {
@@ -33,24 +33,40 @@ private:
                     .color = {0.f, 1.f, 0.f, 1.f}
                 },
                 {
-                    .position = {0.0f, 0.5f, 0.f},
+                    .position = {-0.5f, -0.5f, 0.f},
+                    .color = {0.f, 0.f, 1.f, 1.f}
+                },
+                {
+                    .position = {-0.5f, 0.5f, 0.f},
                     .color = {0.f, 0.f, 1.f, 1.f}
                 }
         };
 
-        std::shared_ptr<HE::VertexBuffer> buffer = HE::ServiceLocator::GetRenderer()->CreateBuffer();
-        buffer->Bind();
-        buffer->UploadData(vertices);
+        std::vector<uint32_t> indices = {
+                0, 1, 3,
+                1, 2, 3
+        };
+
+        std::shared_ptr<HE::VertexBuffer> vertexBuffer = HE::ServiceLocator::GetRenderer()->CreateVertexBuffer();
+        vertexBuffer->Bind();
+        vertexBuffer->UploadData(vertices);
 
         HE::BufferLayout layout = {
                 {HE::ShaderDataType::Float3, "aPos"},
                 {HE::ShaderDataType::Float4, "aColor"},
         };
 
-        buffer->SetLayout(layout);
+        vertexBuffer->SetLayout(layout);
+
+        auto indexBuffer = HE::ServiceLocator::GetRenderer()->CreateIndexBuffer();
+        indexBuffer->Bind();
+        indexBuffer->UploadData(indices);
 
         vertexArray = HE::ServiceLocator::GetRenderer()->CreateVertexArray();
-        vertexArray->AddVertexBuffer(buffer);
+        vertexArray->AddVertexBuffer(vertexBuffer);
+        vertexArray->AddIndexBuffer(indexBuffer);
+
+
 
         shader = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader->Compile(

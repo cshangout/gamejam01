@@ -32,7 +32,7 @@ namespace HE {
 
     void OpenGLRenderer::Submit(const std::shared_ptr<VertexArray>& vertexArray) {
         vertexArray->Bind();
-        RenderCommand(_rendererAPI.get()).DrawArray(vertexArray);
+        RenderCommand(_rendererAPI.get()).DrawIndexed(vertexArray);
     }
 
     void OpenGLRenderer::EndScene() {
@@ -41,8 +41,12 @@ namespace HE {
         }
     }
 
-    std::shared_ptr<VertexBuffer> OpenGLRenderer::CreateBuffer() {
-        return std::make_shared<OpenGLBuffer>();
+    std::shared_ptr<VertexBuffer> OpenGLRenderer::CreateVertexBuffer() {
+        return std::make_shared<OpenGLVertexBuffer>();
+    }
+
+    std::shared_ptr<IndexBuffer> OpenGLRenderer::CreateIndexBuffer() {
+        return std::make_shared<OpenGLIndexBuffer>();
     }
 
     std::shared_ptr<Shader> OpenGLRenderer::CreateShader() {
@@ -56,4 +60,5 @@ namespace HE {
     RenderCommand OpenGLRenderer::GetRenderCommand() {
         return {_rendererAPI.get() };
     }
+
 }

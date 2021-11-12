@@ -12,12 +12,12 @@ namespace HE {
         void Unbind() const override;
         void AddVertexBuffer(const std::shared_ptr<VertexBuffer> &vertexBuffer) override;
         const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() override { return _vertexBuffers; }
+        void AddIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) override;
+        const std::shared_ptr<IndexBuffer>& GetIndexBuffer() override;
     private:
         std::vector<std::shared_ptr<VertexBuffer>> _vertexBuffers{};
-        std::shared_ptr<VertexBuffer> _indexBuffer = nullptr;
+        std::shared_ptr<IndexBuffer> _indexBuffer = nullptr;
 
-        uint32_t _handle;
-        uint32_t _count = 0;
-
+        uint32_t _handle = 0;
     };
 }
