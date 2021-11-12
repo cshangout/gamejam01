@@ -18,6 +18,7 @@ namespace HE {
         bool Update() override;
 
         std::pair<int, int> GetWindowExtents() override;
+        float GetAspectRatio() override;
 
         void OpenWindow(WindowData data) override;
 

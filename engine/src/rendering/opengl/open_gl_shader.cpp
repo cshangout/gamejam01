@@ -1,11 +1,11 @@
 #include "open_gl_shader.h"
 #include <iostream>
 #include <hangout_engine/rendering/types.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace HE {
     void OpenGLShader::Bind() {
         // TODO: Vertex type is hardcoded here, we probably want to make it more generic to make a more flexible interface
-        bindVertexAttributes();
         glUseProgram(_program);
     }
 
@@ -52,15 +52,10 @@ namespace HE {
         glDeleteShader(fragment);
     }
 
-    void OpenGLShader::bindVertexAttributes() {
-//        // enable the attribute arrays
-//        int location = 0;
-//
-//        for (auto attribute : Vertex::GetAttributes()) {
-//            uint32_t type = attribute.type == VertexAttribute::DataType::FLOAT ? GL_FLOAT : GL_INT;
-//            glVertexAttribPointer(location, attribute.size, type, GL_FALSE, attribute.stride, (void*)attribute.offset);
-//            glEnableVertexAttribArray(location);
-//            location++;
-//        }
+    void OpenGLShader::UniformMat4(const std::string& name, const glm::mat4 &matrix) {
+        GLint location = glGetUniformLocation(_program, name.c_str());
+
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
     }
+
 }

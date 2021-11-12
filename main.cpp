@@ -3,22 +3,27 @@
 #include <hangout_engine/rendering/buffer.h>
 #include <hangout_engine/rendering/vertex_array.h>
 #include <vector>
-
+#include <hangout_engine/rendering/camera.h>
 
 
 class GameJamProject : public HE::Game {
 public:
-    explicit GameJamProject(std::string title) : HE::Game(std::move(title)) {
+    explicit GameJamProject(std::string title) :
+        HE::Game(std::move(title)),
+        camera(HE::OrthographicCamera(HE::ServiceLocator::GetWindow()->GetAspectRatio())) {
+
     }
 
 protected:
     void Init() override {
         HE::ServiceLocator::GetWindow()->MakeContextCurrent();
-
+        camera.SetPosition({0.5, 0.5, 0});
+        camera.SetRotation(45.0f);
         setupScene();
     }
 
     void Update(float deltaTime) override {
+
     }
 
 private:
@@ -66,18 +71,18 @@ private:
         vertexArray->AddVertexBuffer(vertexBuffer);
         vertexArray->AddIndexBuffer(indexBuffer);
 
-
-
         shader = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader->Compile(
             HE_SHADER_VERSION_STRING
             "layout (location = 0) in vec3 aPos;\n"
             "layout (location = 1) in vec4 aColor;\n"
 
+            "uniform mat4 u_ViewProjection;"
+
             "out vec4 v_Color;"
             "void main()\n"
             "{\n"
-            "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+            "   gl_Position = u_ViewProjection * vec4(aPos, 1.0);\n"
             "   v_Color = aColor;"
             "}",
             HE_SHADER_VERSION_STRING
@@ -99,11 +104,10 @@ private:
         commandBuffer.SetClearColor({0.1f, 0.2f, 0.3f, 1.0f});
         commandBuffer.Clear();
 
-        HE::ServiceLocator::GetRenderer()->BeginScene();
+        HE::ServiceLocator::GetRenderer()->BeginScene(camera);
 
+        HE::ServiceLocator::GetRenderer()->Submit(shader, vertexArray);
 
-        shader->Bind();
-        HE::ServiceLocator::GetRenderer()->Submit(vertexArray);
         HE::ServiceLocator::GetRenderer()->EndScene();
 
     }
@@ -111,6 +115,7 @@ private:
     std::shared_ptr<HE::Shader> shader;
     std::shared_ptr<HE::VertexArray> vertexArray = nullptr;
 
+    HE::OrthographicCamera camera {1.33 };
 };
 
 HE::Game* HE::CreateGame() {

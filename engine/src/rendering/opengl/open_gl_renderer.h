@@ -9,8 +9,8 @@ namespace HE {
         void Init(RendererSettings settings) override;
         void Shutdown() override;
 
-        void BeginScene() override;
-        void Submit(const std::shared_ptr<VertexArray>&) override;
+        void BeginScene(Camera& camera) override;
+        void Submit(const std::shared_ptr<Shader>&, const std::shared_ptr<VertexArray>&) override;
         void EndScene() override;
 
         std::shared_ptr<VertexBuffer> CreateVertexBuffer() override;
@@ -22,6 +22,11 @@ namespace HE {
         RenderCommand GetRenderCommand() override;
 
     private:
+        struct SceneData {
+            glm::mat4 ViewProjectionMatrix { 1.f };
+        };
+
+        SceneData _sceneData {};
         std::unique_ptr<OpenGLRendererAPI> _rendererAPI = nullptr;
     };
 }

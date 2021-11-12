@@ -18,6 +18,7 @@ namespace HE {
         virtual void MakeContextCurrent() = 0;
 
         virtual std::pair<int, int> GetWindowExtents() = 0;
+        virtual float GetAspectRatio() = 0;
         virtual void SwapBuffer() = 0;
         virtual bool IsManagedGameLoop() { return _managed; }
         virtual void SetManagedFunction(callback) = 0;

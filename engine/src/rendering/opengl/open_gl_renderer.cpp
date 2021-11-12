@@ -27,11 +27,15 @@ namespace HE {
 
     }
 
-    void OpenGLRenderer::BeginScene() {
+    void OpenGLRenderer::BeginScene(Camera& camera) {
+        _sceneData.ViewProjectionMatrix = camera.GetViewProjectionMatrix();
     }
 
-    void OpenGLRenderer::Submit(const std::shared_ptr<VertexArray>& vertexArray) {
+    void OpenGLRenderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray) {
         vertexArray->Bind();
+        shader->Bind();
+        shader->UniformMat4("u_ViewProjection", _sceneData.ViewProjectionMatrix);
+
         RenderCommand(_rendererAPI.get()).DrawIndexed(vertexArray);
     }
 

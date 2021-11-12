@@ -26,6 +26,11 @@ namespace HE {
         return { width, height };
     }
 
+    float SDLWindow::GetAspectRatio() {
+        auto [width, height] = GetWindowExtents();
+        return static_cast<float>(width) / static_cast<float>(height);
+    }
+
     void SDLWindow::OpenWindow(WindowData data) {
 #if __EMSCRIPTEN__
       _managed = true;
@@ -71,4 +76,6 @@ namespace HE {
         emscripten_set_main_loop(function, 0, 1);
 #endif
     }
+
+
 }
