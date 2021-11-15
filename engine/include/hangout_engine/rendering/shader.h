@@ -51,7 +51,7 @@ namespace HE {
                 fragmentCode.insert(0, std::string(HE_SHADER_VERSION_STRING) + "\n");
 
             } catch (const std::ifstream::failure& e) {
-                std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+                std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ: " << e.what() << std::endl;
             }
 
             Compile(vertexCode, fragmentCode);

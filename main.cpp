@@ -1,8 +1,5 @@
 #include <hangout_engine/platform/entry_point.h>
-#include <hangout_engine/rendering/types.h>
-#include <hangout_engine/rendering/buffer.h>
-#include <hangout_engine/rendering/vertex_array.h>
-#include <hangout_engine/rendering/camera.h>
+
 #include <hangout_engine/rendering/render_command.h>
 #include <vector>
 

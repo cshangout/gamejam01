@@ -2,8 +2,10 @@
 
 #include <cstdint>
 #include <vector>
-#include "types.h"
 #include <string>
+#include <cassert>
+
+#include "types.h"
 
 namespace HE {
     enum class ShaderDataType {
@@ -48,6 +50,7 @@ namespace HE {
             case ShaderDataType::Bool:
                 return 1;
         }
+        assert(("Invalid ShaderDataType requested", true));
     }
     struct BufferElement {
         ShaderDataType type;
