@@ -14,7 +14,7 @@ find_package(OpenGL REQUIRED)
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
-add_library(${PROJECT_NAME} STATIC ${SOURCES} include/hangout_engine/rendering/types.h src/rendering/opengl/open_gl_buffer.cpp src/rendering/opengl/open_gl_buffer.h)
+add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(OPENGL_LIBRARY OpenGL::GL)
@@ -46,10 +46,3 @@ target_link_libraries(${PROJECT_NAME}
         ${OPENGL_LIBRARY}
 
 )
-
-if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
-    # Copy assets into build directory -- used for non-emscripten builds
-    add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${ASSETS_DIR}/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
-endif()

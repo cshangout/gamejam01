@@ -8,9 +8,13 @@ namespace HE {
         void Bind() override;
         void Compile(const std::string& vertexSource, const std::string& fragmentSource) override;
 
-        void UniformMat4(const std::string& name, const glm::mat4& matrix) override;
+        void Boolean(const std::string &name, bool value) const override;
+        void Int(const std::string &name, int value) const override;
+        void Float(const std::string &name, float value) const override;
+        void UniformMat4(const std::string& name, const glm::mat4& matrix) const override;
 
     private:
+        GLint getShaderLocation(const std::string& name) const;
         uint32_t _program = 0;
     };
 }

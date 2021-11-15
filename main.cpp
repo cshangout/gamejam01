@@ -76,29 +76,7 @@ private:
         vertexArray->AddIndexBuffer(indexBuffer);
 
         shader = HE::ServiceLocator::GetRenderer()->CreateShader();
-        shader->Compile(
-            HE_SHADER_VERSION_STRING
-            "layout (location = 0) in vec3 aPos;\n"
-            "layout (location = 1) in vec4 aColor;\n"
-
-            "uniform mat4 u_ViewProjection;"
-
-            "out vec4 v_Color;"
-            "void main()\n"
-            "{\n"
-            "   gl_Position = u_ViewProjection * vec4(aPos, 1.0);\n"
-            "   v_Color = aColor;"
-            "}",
-            HE_SHADER_VERSION_STRING
-            "precision highp float;"
-            "out vec4 FragColor;\n"
-            "in vec4 v_Color;"
-            "\n"
-            "void main()\n"
-            "{\n"
-            "    FragColor = v_Color;\n"
-            "} "
-        );
+        shader->LoadAndCompile("shaders/basic.vs", "shaders/basic.fs" );
 
     }
 

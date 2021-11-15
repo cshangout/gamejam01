@@ -31,3 +31,10 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC
         hangout-engine
 )
+
+if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+    # Copy assets into build directory -- used for non-emscripten builds
+    add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${ASSETS_DIR}/ $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
+endif()

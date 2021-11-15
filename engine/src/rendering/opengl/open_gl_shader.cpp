@@ -52,10 +52,32 @@ namespace HE {
         glDeleteShader(fragment);
     }
 
-    void OpenGLShader::UniformMat4(const std::string& name, const glm::mat4 &matrix) {
-        GLint location = glGetUniformLocation(_program, name.c_str());
+    void OpenGLShader::Boolean(const std::string &name, bool value) const {
+        GLint location = getShaderLocation(name);
+
+        glUniform1i(location, static_cast<int>(value));
+    }
+
+    void OpenGLShader::Int(const std::string &name, int value) const {
+        GLint location = getShaderLocation(name);
+
+        glUniform1i(location, value);
+    }
+
+    void OpenGLShader::Float(const std::string &name, float value) const {
+        GLint location = getShaderLocation(name);
+
+        glUniform1f(location, value);
+    }
+
+    void OpenGLShader::UniformMat4(const std::string& name, const glm::mat4 &matrix) const {
+        GLint location = getShaderLocation(name);
 
         glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+    }
+
+    GLint OpenGLShader::getShaderLocation(const std::string &name) const {
+        return glGetUniformLocation(_program, name.c_str());
     }
 
 }
