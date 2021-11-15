@@ -7,7 +7,6 @@
 #include "shader.h"
 #include "vertex_array.h"
 #include "renderer_api.h"
-#include "render_command.h"
 
 namespace HE {
     struct RendererSettings {
@@ -30,6 +29,6 @@ namespace HE {
         virtual std::shared_ptr<Shader> CreateShader() = 0;
         virtual std::shared_ptr<VertexArray> CreateVertexArray() = 0;
 
-        virtual RenderCommand GetRenderCommand() = 0;
+        virtual RendererAPI* GetRendererAPI() = 0;
     };
 }

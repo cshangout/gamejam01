@@ -2,8 +2,9 @@
 #include <hangout_engine/rendering/types.h>
 #include <hangout_engine/rendering/buffer.h>
 #include <hangout_engine/rendering/vertex_array.h>
-#include <vector>
 #include <hangout_engine/rendering/camera.h>
+#include <hangout_engine/rendering/render_command.h>
+#include <vector>
 
 
 class GameJamProject : public HE::Game {
@@ -102,10 +103,9 @@ private:
     }
 
     void Render() override {
-        auto commandBuffer = HE::ServiceLocator::GetRenderer()->GetRenderCommand();
 
-        commandBuffer.SetClearColor({0.1f, 0.2f, 0.3f, 1.0f});
-        commandBuffer.Clear();
+        HE::RenderCommand::SetClearColor({0.1f, 0.2f, 0.3f, 1.0f});
+        HE::RenderCommand::Clear();
 
         HE::ServiceLocator::GetRenderer()->BeginScene(camera);
 

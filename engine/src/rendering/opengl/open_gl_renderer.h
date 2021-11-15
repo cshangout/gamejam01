@@ -19,7 +19,7 @@ namespace HE {
         std::shared_ptr<Shader> CreateShader() override;
         std::shared_ptr<VertexArray> CreateVertexArray() override;
 
-        RenderCommand GetRenderCommand() override;
+        RendererAPI* GetRendererAPI() override;
 
     private:
         struct SceneData {

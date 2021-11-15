@@ -2,29 +2,30 @@
 
 #include "renderer_api.h"
 #include <memory>
+#include <hangout_engine/service_locator.h>
 #include "vertex_array.h"
 
 namespace HE {
     class RenderCommand {
     public:
-        RenderCommand(RendererAPI* renderer) : _rendererApi(renderer) {}
-
-        inline void SetClearColor(const glm::vec4 &color) {
-            _rendererApi->SetClearColor(color);
+        static inline void SetClearColor(const glm::vec4 &color) {
+            getAPI()->SetClearColor(color);
         }
 
-        inline void Clear() {
-            _rendererApi->Clear();
+        static inline void Clear() {
+            getAPI()->Clear();
         }
 
-        inline void DrawArray(const std::shared_ptr<VertexArray>& vertexArray) {
-            _rendererApi->DrawArray(vertexArray);
+        static inline void DrawArray(const std::shared_ptr<VertexArray>& vertexArray) {
+            getAPI()->DrawArray(vertexArray);
         }
 
-        inline void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) {
-            _rendererApi->DrawIndexed(vertexArray);
+        static inline void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) {
+            getAPI()->DrawIndexed(vertexArray);
         }
     private:
-        RendererAPI* _rendererApi = nullptr;
+        static RendererAPI* getAPI() {
+            return ServiceLocator::GetRenderer()->GetRendererAPI();
+        }
     };
 }

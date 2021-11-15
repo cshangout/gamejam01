@@ -36,7 +36,7 @@ namespace HE {
         shader->Bind();
         shader->UniformMat4("u_ViewProjection", _sceneData.ViewProjectionMatrix);
 
-        RenderCommand(_rendererAPI.get()).DrawIndexed(vertexArray);
+        RenderCommand::DrawIndexed(vertexArray);
     }
 
     void OpenGLRenderer::EndScene() {
@@ -61,8 +61,8 @@ namespace HE {
         return std::make_shared<OpenGLVertexArray>();
     }
 
-    RenderCommand OpenGLRenderer::GetRenderCommand() {
-        return {_rendererAPI.get() };
+    RendererAPI* OpenGLRenderer::GetRendererAPI() {
+        return _rendererAPI.get();
     }
 
 }
