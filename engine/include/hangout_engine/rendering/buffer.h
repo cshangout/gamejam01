@@ -26,7 +26,7 @@ namespace HE {
     static uint32_t ShaderDataTypeSize(ShaderDataType type) {
         switch (type) {
             case ShaderDataType::None:
-                return 0;
+                assert(("None ShaderDataType Requested", true));
             case ShaderDataType::Float:
                 return 4;
             case ShaderDataType::Float2:
@@ -52,6 +52,7 @@ namespace HE {
         }
         assert(("Invalid ShaderDataType requested", true));
     }
+
     struct BufferElement {
         ShaderDataType type;
         std::string name;
@@ -64,7 +65,7 @@ namespace HE {
 
         }
 
-        uint32_t GetComponentCount() const {
+        [[nodiscard]] uint32_t GetComponentCount() const {
             switch(type) {
                 case ShaderDataType::Float:
                     return 1;
@@ -88,7 +89,11 @@ namespace HE {
                     return 4;
                 case ShaderDataType::Bool:
                     return 1;
+                case ShaderDataType::None:
+                    assert(("None ShaderDataType Requested", true));
             }
+            assert(("Invalid ShaderDataType Requested", true));
+
         }
     };
 
@@ -100,8 +105,8 @@ namespace HE {
 
         BufferLayout() : _elements{} {}
 
-        inline const std::vector<BufferElement>& GetElements() const { return _elements; }
-        inline uint32_t GetStride() const { return _stride; }
+        [[nodiscard]] inline const std::vector<BufferElement>& GetElements() const { return _elements; }
+        [[nodiscard]] inline uint32_t GetStride() const { return _stride; }
 
         std::vector<BufferElement>::iterator begin() { return _elements.begin(); }
         std::vector<BufferElement>::iterator end() { return _elements.end(); }
@@ -126,7 +131,7 @@ namespace HE {
         virtual void Bind() = 0;
         virtual void UploadData(const std::vector<Vertex>&) = 0;
         virtual void SetLayout(const BufferLayout& layout) = 0;
-        virtual const BufferLayout& GetLayout() const = 0;
+        [[nodiscard]] virtual const BufferLayout& GetLayout() const = 0;
         virtual uint32_t GetCount() = 0;
         virtual void BindBufferLayout() = 0;
 
