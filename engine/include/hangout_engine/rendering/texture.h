@@ -4,7 +4,7 @@
 
 namespace HE {
     struct TextureData {
-        TextureData(std::filesystem::path&& texturePath);
+        TextureData(std::filesystem::path&& texturePath, bool flipVertical = false);
 
         ~TextureData();
 

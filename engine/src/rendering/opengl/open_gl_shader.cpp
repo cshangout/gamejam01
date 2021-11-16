@@ -19,8 +19,11 @@ namespace HE {
             auto location = getShaderLocation(binding.samplerName);
             int textureUnit = static_cast<int>(binding.index);
 
+            // Activate the appropriate texture
             glActiveTexture(GL_TEXTURE0 + textureUnit);
-            glUniform1i(location, textureUnit);
+            // Set the uniform texture unit location
+            Int(binding.samplerName, static_cast<int>(binding.index));
+            // Bind the texture
             binding.texture->Bind();
         }
     }
@@ -42,6 +45,7 @@ namespace HE {
             std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
         }
 
+        // Fragment shader
         const char* fShaderCode = fragmentCode.c_str();
         fragment = glCreateShader(GL_FRAGMENT_SHADER);
         glShaderSource(fragment, 1, &fShaderCode, nullptr);

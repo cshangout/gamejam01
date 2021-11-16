@@ -6,9 +6,9 @@
 
 namespace HE {
 
-    TextureData::TextureData(std::filesystem::path &&texturePath) : _width(0), _height(0), _channels(0) {
+    TextureData::TextureData(std::filesystem::path &&texturePath, bool flipVertical) : _width(0), _height(0), _channels(0) {
         Path textureAssetPath = Filesystem::GetAssetPath() /= texturePath;
-
+        stbi_set_flip_vertically_on_load(flipVertical);
         _data = stbi_load(textureAssetPath.c_str(), &_width, &_height, &_channels, 0);
     }
 
