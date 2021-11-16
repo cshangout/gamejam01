@@ -11,7 +11,6 @@ namespace HE {
         ~OpenGLTexture();
 
         void Bind() override;
-
         void BindSamplerSettings(const SamplerSettings& settings) override;
         void UploadData(const TextureData& data) override;
 

@@ -1,7 +1,9 @@
 #include "open_gl_shader.h"
+
 #include <iostream>
-#include <hangout_engine/rendering/types.h>
 #include <glm/gtc/type_ptr.hpp>
+#include <hangout_engine/rendering/types.h>
+#include <hangout_engine/rendering/texture.h>
 
 namespace HE {
     OpenGLShader::~OpenGLShader() {
@@ -12,6 +14,15 @@ namespace HE {
 
     void OpenGLShader::Bind() {
         glUseProgram(_program);
+
+        for (auto& binding : _samplers) {
+            auto location = getShaderLocation(binding.samplerName);
+            int textureUnit = static_cast<int>(binding.index);
+
+            glActiveTexture(GL_TEXTURE0 + textureUnit);
+            glUniform1i(location, textureUnit);
+            binding.texture->Bind();
+        }
     }
 
     void OpenGLShader::Compile(const std::string& vertexCode, const std::string& fragmentCode) {

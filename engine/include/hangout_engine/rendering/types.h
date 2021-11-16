@@ -3,10 +3,26 @@
 #include <vector>
 
 namespace HE {
+    class Texture;
+
     struct Vertex {
         glm::vec3 position;
         glm::vec4 color;
         glm::vec2 uv;
+    };
+
+    enum class TextureBindingIndex {
+        Texture0 = 0,
+        Texture1,
+        Texture2,
+        Normal,
+        Roughness,
+    };
+
+    struct TextureSamplerBinding {
+        std::string samplerName;
+        TextureBindingIndex index;
+        std::shared_ptr<Texture> texture;
     };
 
     enum class TextureWrapMode {

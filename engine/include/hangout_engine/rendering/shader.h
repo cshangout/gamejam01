@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include "types.h"
 
 #if !__EMSCRIPTEN__
 #define HE_SHADER_VERSION_STRING "#version 330 core\n"
@@ -57,12 +58,18 @@ namespace HE {
             Compile(vertexCode, fragmentCode);
         }
 
+        virtual void SetTextureSamplers(std::initializer_list<TextureSamplerBinding>&& elements) {
+            _samplers = elements;
+        }
+
         // Uniforms
         virtual void Boolean(const std::string& name, bool value) const = 0;
         virtual void Int(const std::string& name, int value) const = 0;
         virtual void Float(const std::string& name, float value) const = 0;
         virtual void UniformMat4(const std::string&, const glm::mat4&) const = 0;
     protected:
+        std::vector<TextureSamplerBinding> _samplers {};
+
     private:
 
     };

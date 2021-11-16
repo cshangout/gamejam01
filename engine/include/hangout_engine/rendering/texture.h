@@ -9,9 +9,7 @@ namespace HE {
         ~TextureData();
 
         [[nodiscard]] std::pair<uint32_t, uint32_t> GetSize() const;
-
         [[nodiscard]] const unsigned char* GetData() const;
-
         [[nodiscard]] int GetChannels() const;
 
     private:

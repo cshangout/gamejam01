@@ -32,7 +32,7 @@ namespace HE {
         auto [width, height] = data.GetSize();
 
         glTexImage2D(GL_TEXTURE_2D, 0, TextureChannelNumberToOpenGL(data.GetChannels()), static_cast<GLsizei>(width), static_cast<GLsizei>(height),
-                     0, GL_RGB, GL_UNSIGNED_BYTE, data.GetData());
+                     0, TextureChannelNumberToOpenGL(data.GetChannels()), GL_UNSIGNED_BYTE, data.GetData());
 
         glGenerateMipmap(GL_TEXTURE_2D);
     }

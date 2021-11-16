@@ -77,38 +77,56 @@ private:
         vertexArray->AddVertexBuffer(vertexBuffer);
         vertexArray->AddIndexBuffer(indexBuffer);
 
-        shader = HE::ServiceLocator::GetRenderer()->CreateShader();
-        shader->LoadAndCompile("shaders/basic.vs", "shaders/basic.fs" );
-
-        texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
+        auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
         auto data = HE::TextureData("textures/container.jpeg");
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{
-           .repeatModeS = HE::TextureWrapMode::Repeat,
-           .repeatModeT = HE::TextureWrapMode::Repeat,
-           .minFilter = HE::TextureFiltering::Linear,
-           .magFilter = HE::TextureFiltering::Linear,
+                .repeatModeS = HE::TextureWrapMode::Repeat,
+                .repeatModeT = HE::TextureWrapMode::Repeat,
+                .minFilter = HE::TextureFiltering::Linear,
+                .magFilter = HE::TextureFiltering::Linear,
         });
         texture->UploadData(data);
+
+        auto texture2 = HE::ServiceLocator::GetRenderer()->CreateTexture();
+        auto data2 = HE::TextureData("textures/awesomeface.png");
+        texture2->Bind();
+        texture2->BindSamplerSettings(HE::SamplerSettings{
+                .repeatModeS = HE::TextureWrapMode::Repeat,
+                .repeatModeT = HE::TextureWrapMode::Repeat,
+                .minFilter = HE::TextureFiltering::Linear,
+                .magFilter = HE::TextureFiltering::Linear,
+        });
+        texture2->UploadData(data2);
+
+        shader = HE::ServiceLocator::GetRenderer()->CreateShader();
+        shader->LoadAndCompile("shaders/basic.vs", "shaders/basic.fs" );
+        shader->SetTextureSamplers({
+            {
+                .samplerName = "smileTexture",
+                .index = HE::TextureBindingIndex::Texture0,
+                .texture = texture2,
+            },
+            {
+                .samplerName = "baseTexture",
+                .index = HE::TextureBindingIndex::Texture1,
+                .texture = texture,
+            },
+        });
     }
 
     void Render() override {
-
         HE::RenderCommand::SetClearColor({0.1f, 0.2f, 0.3f, 1.0f});
         HE::RenderCommand::Clear();
 
-        HE::ServiceLocator::GetRenderer()->BeginScene(camera);
-
-        texture->Bind();
+        HE::ServiceLocator::GetRenderer()->BeginScene(cameraOrtho);
         HE::ServiceLocator::GetRenderer()->Submit(shader, vertexArray);
-
         HE::ServiceLocator::GetRenderer()->EndScene();
 
     }
 private:
     std::shared_ptr<HE::Shader> shader;
     std::shared_ptr<HE::VertexArray> vertexArray = nullptr;
-    std::shared_ptr<HE::Texture> texture = nullptr;
 
     HE::PerspectiveCamera camera;
     HE::OrthographicCamera cameraOrtho;
