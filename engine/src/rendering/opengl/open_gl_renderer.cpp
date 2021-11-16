@@ -10,6 +10,7 @@
 #include "open_gl_buffer.h"
 #include "open_gl_shader.h"
 #include "open_gl_vertex_array.h"
+#include "open_gl_texture.h"
 
 namespace HE {
     void OpenGLRenderer::Init(RendererSettings settings) {
@@ -63,6 +64,10 @@ namespace HE {
 
     RendererAPI* OpenGLRenderer::GetRendererAPI() {
         return _rendererAPI.get();
+    }
+
+    std::shared_ptr<Texture> OpenGLRenderer::CreateTexture() {
+        return std::make_shared<OpenGLTexture>();
     }
 
 }

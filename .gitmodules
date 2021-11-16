@@ -7,3 +7,6 @@
 [submodule "engine/external/emsdk"]
 	path = engine/external/emsdk
 	url = git@github.com:emscripten-core/emsdk.git
+[submodule "engine/external/stb"]
+	path = engine/external/stb
+	url = git@github.com:nothings/stb.git

@@ -5,6 +5,7 @@
 namespace HE {
     class OpenGLShader : public Shader {
     public:
+        ~OpenGLShader();
         void Bind() override;
         void Compile(const std::string& vertexSource, const std::string& fragmentSource) override;
 
@@ -14,7 +15,7 @@ namespace HE {
         void UniformMat4(const std::string& name, const glm::mat4& matrix) const override;
 
     private:
-        GLint getShaderLocation(const std::string& name) const;
+        [[nodiscard]] GLint getShaderLocation(const std::string& name) const;
         uint32_t _program = 0;
     };
 }

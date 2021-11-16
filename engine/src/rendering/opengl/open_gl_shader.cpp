@@ -4,8 +4,13 @@
 #include <glm/gtc/type_ptr.hpp>
 
 namespace HE {
+    OpenGLShader::~OpenGLShader() {
+        if (_program) {
+            glDeleteProgram(_program);
+        }
+    }
+
     void OpenGLShader::Bind() {
-        // TODO: Vertex type is hardcoded here, we probably want to make it more generic to make a more flexible interface
         glUseProgram(_program);
     }
 
@@ -79,5 +84,6 @@ namespace HE {
     GLint OpenGLShader::getShaderLocation(const std::string &name) const {
         return glGetUniformLocation(_program, name.c_str());
     }
+
 
 }

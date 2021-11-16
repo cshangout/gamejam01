@@ -19,6 +19,8 @@ namespace HE {
         std::shared_ptr<Shader> CreateShader() override;
         std::shared_ptr<VertexArray> CreateVertexArray() override;
 
+        std::shared_ptr<Texture> CreateTexture() override;
+
         RendererAPI* GetRendererAPI() override;
 
     private:

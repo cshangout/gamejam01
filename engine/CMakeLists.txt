@@ -18,6 +18,8 @@ add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(OPENGL_LIBRARY OpenGL::GL)
+    # This is used to silence deprecation warnings on mac, because they're annoying.
+    add_compile_definitions(GL_SILENCE_DEPRECATION=1)
 endif()
 
 target_include_directories(${PROJECT_NAME}
@@ -32,7 +34,7 @@ target_include_directories(${PROJECT_NAME}
         SDL2main
         SDL2-static
         ${OPENGL_LIBRARY}
-
+        external/stb
 )
 
 target_link_libraries(${PROJECT_NAME}

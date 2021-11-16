@@ -23,4 +23,45 @@ namespace HE {
                 return 0;
         }
     }
+
+    static GLint TextureWrapModeToOpenGL(TextureWrapMode mode) {
+        switch (mode) {
+            case TextureWrapMode::Repeat:
+                return GL_REPEAT;
+            case TextureWrapMode::MirroredRepeat:
+                return GL_MIRRORED_REPEAT;
+            case TextureWrapMode::ClampToEdge:
+                return GL_CLAMP_TO_EDGE;
+            case TextureWrapMode::ClampToBorder:
+                return GL_CLAMP_TO_BORDER;
+        }
+    }
+
+    static GLint TextureFilteringToOpenGL(TextureFiltering filtering) {
+        switch(filtering){
+            case TextureFiltering::Nearest:
+                return GL_NEAREST;
+            case TextureFiltering::NearestMipMapNearest:
+                return GL_NEAREST_MIPMAP_NEAREST;
+            case TextureFiltering::NearestMiMapLinear:
+                return GL_NEAREST_MIPMAP_LINEAR;
+            case TextureFiltering::Linear:
+                return GL_LINEAR;
+            case TextureFiltering::LinearMipMapNearest:
+                return GL_LINEAR_MIPMAP_NEAREST;
+            case TextureFiltering::LinearMipMapLinear:
+                return GL_LINEAR_MIPMAP_LINEAR;
+        }
+    }
+
+    static GLint TextureChannelNumberToOpenGL(int channels) {
+        switch(channels) {
+            case 3:
+                return GL_RGB;
+            case 4:
+                return GL_RGBA;
+            default:
+                assert(true && "Number of channels not supported!");
+        }
+    }
 }

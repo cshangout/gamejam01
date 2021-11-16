@@ -8,25 +8,10 @@
 #include "types.h"
 
 namespace HE {
-    enum class ShaderDataType {
-        None = 0,
-        Float,
-        Float2,
-        Float3,
-        Float4,
-        Mat3,
-        Mat4,
-        Int,
-        Int2,
-        Int3,
-        Int4,
-        Bool
-    };
-
     static uint32_t ShaderDataTypeSize(ShaderDataType type) {
         switch (type) {
             case ShaderDataType::None:
-                assert(("None ShaderDataType Requested", true));
+                assert(true && "None ShaderDataType Requested");
             case ShaderDataType::Float:
                 return 4;
             case ShaderDataType::Float2:
@@ -50,7 +35,7 @@ namespace HE {
             case ShaderDataType::Bool:
                 return 1;
         }
-        assert(("Invalid ShaderDataType requested", true));
+        assert(true && "Invalid ShaderDataType requested");
     }
 
     struct BufferElement {
@@ -90,10 +75,10 @@ namespace HE {
                 case ShaderDataType::Bool:
                     return 1;
                 case ShaderDataType::None:
-                    assert(("None ShaderDataType Requested", true));
+                    assert(true && "None ShaderDataType Requested");
             }
-            assert(("Invalid ShaderDataType Requested", true));
-
+            assert(true && "Invalid ShaderDataType Requested");
+            return -1;
         }
     };
 
