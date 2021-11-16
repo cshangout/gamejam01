@@ -32,19 +32,23 @@ private:
         std::vector<HE::Vertex> vertices = {
                 {
                     .position = {0.5f, 0.5f, 0.f},
-                    .color = {1.f, 0.f, 0.f, 1.f}
+                    .color = {1.f, 0.f, 0.f, 1.f},
+                    .uv = { 1.f, 1.f }
                 },
                 {
                     .position = {0.5f, -0.5f, 0.f},
-                    .color = {0.f, 1.f, 0.f, 1.f}
+                    .color = {0.f, 1.f, 0.f, 1.f},
+                    .uv = { 1.f, 0.f }
                 },
                 {
                     .position = {-0.5f, -0.5f, 0.f},
-                    .color = {0.f, 0.f, 1.f, 1.f}
+                    .color = {0.f, 0.f, 1.f, 1.f},
+                    .uv = { 0.f, 0.f }
                 },
                 {
                     .position = {-0.5f, 0.5f, 0.f},
-                    .color = {0.f, 0.f, 1.f, 1.f}
+                    .color = {0.f, 0.f, 1.f, 1.f},
+                    .uv = { 0.f, 1.f }
                 }
         };
 
@@ -60,6 +64,7 @@ private:
         HE::BufferLayout layout = {
                 {HE::ShaderDataType::Float3, "aPos"},
                 {HE::ShaderDataType::Float4, "aColor"},
+                {HE::ShaderDataType::Float2, "aTexCoord"}
         };
 
         vertexBuffer->SetLayout(layout);
@@ -75,6 +80,16 @@ private:
         shader = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader->LoadAndCompile("shaders/basic.vs", "shaders/basic.fs" );
 
+        texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
+        auto data = HE::TextureData("textures/container.jpeg");
+        texture->Bind();
+        texture->BindSamplerSettings(HE::SamplerSettings{
+           .repeatModeS = HE::TextureWrapMode::Repeat,
+           .repeatModeT = HE::TextureWrapMode::Repeat,
+           .minFilter = HE::TextureFiltering::Linear,
+           .magFilter = HE::TextureFiltering::Linear,
+        });
+        texture->UploadData(data);
     }
 
     void Render() override {
@@ -84,6 +99,7 @@ private:
 
         HE::ServiceLocator::GetRenderer()->BeginScene(camera);
 
+        texture->Bind();
         HE::ServiceLocator::GetRenderer()->Submit(shader, vertexArray);
 
         HE::ServiceLocator::GetRenderer()->EndScene();
@@ -92,6 +108,7 @@ private:
 private:
     std::shared_ptr<HE::Shader> shader;
     std::shared_ptr<HE::VertexArray> vertexArray = nullptr;
+    std::shared_ptr<HE::Texture> texture = nullptr;
 
     HE::PerspectiveCamera camera;
     HE::OrthographicCamera cameraOrtho;
