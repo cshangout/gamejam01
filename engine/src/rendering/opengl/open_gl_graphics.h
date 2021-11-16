@@ -1,7 +1,8 @@
 #pragma once
 
 #if __EMSCRIPTEN__
-    #include <GLES3/gl32.h>
+    #define GLES
+    #include <GLES3/gl3.h>
 #elif __APPLE__
 #include <OpenGL/gl3.h>
 #else

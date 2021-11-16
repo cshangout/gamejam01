@@ -22,7 +22,10 @@ namespace HE {
     void OpenGLTexture::BindSamplerSettings(const SamplerSettings& settings) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, TextureWrapModeToOpenGL(settings.repeatModeS));
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, TextureWrapModeToOpenGL(settings.repeatModeT));
+
+#ifndef GLES
         glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, glm::value_ptr(settings.borderColor));
+#endif
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, TextureFilteringToOpenGL(settings.minFilter));
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, TextureFilteringToOpenGL(settings.magFilter));

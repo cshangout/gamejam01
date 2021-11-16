@@ -1,6 +1,7 @@
 #pragma once
 #include "open_gl_graphics.h"
 #include <hangout_engine/rendering/types.h>
+#include <iostream>
 
 namespace HE {
     static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
@@ -33,7 +34,12 @@ namespace HE {
             case TextureWrapMode::ClampToEdge:
                 return GL_CLAMP_TO_EDGE;
             case TextureWrapMode::ClampToBorder:
+#ifdef GLES
+            std::cout << "WARNING: Clamp to border is not supported in GLES3.0. Using Clamp To Edge instead." << std::endl;
+                return GL_CLAMP_TO_EDGE;
+#else
                 return GL_CLAMP_TO_BORDER;
+#endif
         }
     }
 

@@ -82,9 +82,10 @@ private:
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{
                 .repeatModeS = HE::TextureWrapMode::ClampToBorder,
-                .repeatModeT = HE::TextureWrapMode::MirroredRepeat,
+                .repeatModeT = HE::TextureWrapMode::ClampToEdge,
                 .minFilter = HE::TextureFiltering::Linear,
                 .magFilter = HE::TextureFiltering::Linear,
+                .borderColor = {1.0f, 1.f, 1.f, 1.f }
         });
         texture->UploadData(data);
 
@@ -92,10 +93,11 @@ private:
         auto data2 = HE::TextureData("textures/awesomeface.png", true);
         texture2->Bind();
         texture2->BindSamplerSettings(HE::SamplerSettings{
-                .repeatModeS = HE::TextureWrapMode::MirroredRepeat,
-                .repeatModeT = HE::TextureWrapMode::ClampToBorder,
+                .repeatModeS = HE::TextureWrapMode::ClampToBorder,
+                .repeatModeT = HE::TextureWrapMode::ClampToEdge,
                 .minFilter = HE::TextureFiltering::Linear,
                 .magFilter = HE::TextureFiltering::Linear,
+                .borderColor = {1.0f, 1.f, 1.f, 1.f }
         });
         texture2->UploadData(data2);
 
