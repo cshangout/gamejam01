@@ -2,6 +2,7 @@
 
 #include <hangout_engine/rendering/render_command.h>
 #include <vector>
+#include <iostream>
 
 
 class GameJamProject : public HE::Game {
@@ -20,6 +21,33 @@ protected:
         camera.LookAt(glm::vec3(0,0,0));
         cameraOrtho.SetPosition(glm::vec3(0.5f,0.f,0));
 
+        _inputManager = HE::ServiceLocator::GetInputManager();
+
+        if (_inputManager) {
+            _inputManager->MapInputToAction(HE::InputKey::A, HE::InputAction {
+                .ActionName = "strafe",
+                .Scale = -1.f
+            });
+            _inputManager->MapInputToAction(HE::InputKey::D, HE::InputAction {
+                    .ActionName = "strafe",
+                    .Scale = 1.f
+            });
+
+            _inputManager->RegisterActionCallback("strafe", HE::InputManager::ActionCallback {
+                .Ref = "Hangouts",
+                .Func = [this](HE::InputSource source, int index, float value) {
+
+                    if (value < 0) {
+                        std::cout << "STRAFING " << "LEFT" << std::endl;
+                    } else if (value > 0) {
+                        std::cout << "STRAFING " << "RIGHT" << std::endl;
+                    } else {
+                        std::cout << "STOPPPED" << std::endl;
+                    }
+                    return true;
+                }
+            });
+        }
         setupScene();
     }
 
@@ -78,7 +106,7 @@ private:
         vertexArray->AddIndexBuffer(indexBuffer);
 
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
-        auto data = HE::TextureData("textures/container.jpeg");
+        auto data = std::make_shared<HE::TextureData>("textures/container.jpeg");
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{
                 .repeatModeS = HE::TextureWrapMode::ClampToBorder,
@@ -90,7 +118,7 @@ private:
         texture->UploadData(data);
 
         auto texture2 = HE::ServiceLocator::GetRenderer()->CreateTexture();
-        auto data2 = HE::TextureData("textures/awesomeface.png", true);
+        data = std::make_shared<HE::TextureData>("textures/awesomeface.png", true);
         texture2->Bind();
         texture2->BindSamplerSettings(HE::SamplerSettings{
                 .repeatModeS = HE::TextureWrapMode::ClampToBorder,
@@ -99,7 +127,8 @@ private:
                 .magFilter = HE::TextureFiltering::Linear,
                 .borderColor = {1.0f, 1.f, 1.f, 1.f }
         });
-        texture2->UploadData(data2);
+
+        texture2->UploadData(data);
 
         shader = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader->LoadAndCompile("shaders/basic.vs", "shaders/basic.fs" );
@@ -132,6 +161,8 @@ private:
 
     HE::PerspectiveCamera camera;
     HE::OrthographicCamera cameraOrtho;
+
+    HE::InputManager* _inputManager = nullptr;
 };
 
 HE::Game* HE::CreateGame() {
