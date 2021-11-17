@@ -11,10 +11,10 @@ OpenGL shaders so all desktop platforms run with `330 core`.
 ## Structure
 
 ```
-engine/     # This folder is where the main engine files live
-assets/     # This folder contains any assets you want to access from the game (shaders, images, etc)
-s/          # Script folder for setting up and managing the repository
-main.cpp    # This is the file where the "appplication layer" utilizes the engine. Should likely be moved to its own app/ folder
+external/engine     # This folder is where the main engine files live (pulled in as submodule)
+assets/             # This folder contains any assets you want to access from the game (shaders, images, etc)
+s/                  # Script folder for setting up and managing the repository
+main.cpp            # This is the file where the "appplication layer" utilizes the engine. Should likely be moved to its own app/ folder
 ```
 
 ## Set up

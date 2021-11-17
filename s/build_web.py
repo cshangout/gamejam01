@@ -11,7 +11,7 @@ if __name__ == "__main__":
     build_path = os.path.join(os.getcwd(), "build")
     pathlib.Path('build').mkdir(exist_ok=True, parents=True)
 
-    path_to_emsdk = os.path.join(os.getcwd(), 'engine', 'external', 'emsdk')
+    path_to_emsdk = os.path.join(os.getcwd(),'external', 'engine', 'external', 'emsdk')
 
     platform = get_platform()
 

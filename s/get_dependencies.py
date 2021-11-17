@@ -13,7 +13,7 @@ def update_submodules():
 
 
 def install_emsdk():
-    path = os.path.join('engine', 'external', 'emsdk')
+    path = os.path.join('external', 'engine', 'external', 'emsdk')
 
     path += os.path.sep
 

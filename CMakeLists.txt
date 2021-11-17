@@ -18,7 +18,7 @@ if( ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
     set(CMAKE_EXECUTABLE_SUFFIX .html)
 endif()
 
-add_subdirectory(engine)
+add_subdirectory(external/engine)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
