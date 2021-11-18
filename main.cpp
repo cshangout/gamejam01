@@ -24,11 +24,16 @@ protected:
         _inputManager = HE::ServiceLocator::GetInputManager();
 
         if (_inputManager) {
-            _inputManager->MapInputToAction(HE::InputKey::A, HE::InputAction {
+            _inputManager->MapInputToAction(HE::InputKey::KEY_A, HE::InputAction {
                 .ActionName = "strafe",
                 .Scale = -1.f
             });
-            _inputManager->MapInputToAction(HE::InputKey::D, HE::InputAction {
+            _inputManager->MapInputToAction(HE::InputKey::KEY_D, HE::InputAction {
+                    .ActionName = "strafe",
+                    .Scale = 1.f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_AXIS_LEFTX, HE::InputAction {
                     .ActionName = "strafe",
                     .Scale = 1.f
             });
@@ -38,9 +43,9 @@ protected:
                 .Func = [this](HE::InputSource source, int index, float value) {
 
                     if (value < 0) {
-                        std::cout << "STRAFING " << "LEFT" << std::endl;
+                        std::cout << "STRAFING " << value << std::endl;
                     } else if (value > 0) {
-                        std::cout << "STRAFING " << "RIGHT" << std::endl;
+                        std::cout << "STRAFING " << value << std::endl;
                     } else {
                         std::cout << "STOPPPED" << std::endl;
                     }
