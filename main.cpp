@@ -9,17 +9,15 @@ class GameJamProject : public HE::Game {
 public:
     explicit GameJamProject(std::string title) :
         HE::Game(std::move(title)),
-        camera(HE::PerspectiveCamera(45.f, HE::ServiceLocator::GetWindow()->GetAspectRatio(), 0.1f, 100.f)),
-        cameraOrtho(HE::ServiceLocator::GetWindow()->GetAspectRatio()){
+        camera(
+            HE::Camera()
+        ) {
 
     }
 
 protected:
     void Init() override {
         HE::ServiceLocator::GetWindow()->MakeContextCurrent();
-        camera.SetPosition(glm::vec3(1.f,5.f,5));
-        camera.LookAt(glm::vec3(0,0,0));
-        cameraOrtho.SetPosition(glm::vec3(0.5f,0.f,0));
 
         _inputManager = HE::ServiceLocator::GetInputManager();
 
@@ -38,26 +36,98 @@ protected:
                     .Scale = 1.f
             });
 
-            _inputManager->RegisterActionCallback("strafe", HE::InputManager::ActionCallback {
-                .Ref = "Hangouts",
-                .Func = [this](HE::InputSource source, int index, float value) {
+            _inputManager->MapInputToAction(HE::InputKey::KEY_W, HE::InputAction {
+                    .ActionName = "moveForward",
+                    .Scale = 1.f
+            });
 
-                    if (value < 0) {
-                        std::cout << "STRAFING " << value << std::endl;
-                    } else if (value > 0) {
-                        std::cout << "STRAFING " << value << std::endl;
-                    } else {
-                        std::cout << "STOPPPED" << std::endl;
-                    }
-                    return true;
-                }
+            _inputManager->MapInputToAction(HE::InputKey::KEY_S, HE::InputAction {
+                    .ActionName = "moveForward",
+                    .Scale = -1.f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_AXIS_LEFTY, HE::InputAction {
+                    .ActionName = "moveForward",
+                    .Scale = -1.f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::KEY_E, HE::InputAction {
+                    .ActionName = "moveUp",
+                    .Scale = -1.f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::KEY_Q, HE::InputAction {
+                    .ActionName = "moveUp",
+                    .Scale = 1.f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_BUTTON_RIGHTSHOULDER, HE::InputAction {
+                    .ActionName = "moveUp",
+                    .Scale = -1.f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_BUTTON_LEFTSHOULDER, HE::InputAction {
+                    .ActionName = "moveUp",
+                    .Scale = 1.f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::KEY_C, HE::InputAction {
+                    .ActionName = "changeCameraMode",
+                    .Scale = 1.f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_BUTTON_SELECT, HE::InputAction {
+                    .ActionName = "changeCameraMode",
+                    .Scale = 1.f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_AXIS_RIGHTY, HE::InputAction {
+                    .ActionName = "lookY",
+                    .Scale = -1.f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_AXIS_RIGHTX, HE::InputAction {
+                    .ActionName = "lookX",
+                    .Scale = 1.f
+            });
+
+            _inputManager->RegisterActionCallback("changeCameraMode", HE::InputManager::ActionCallback {
+               .Ref = "Hangouts",
+               .Func = [this](HE::InputSource source, int index, float value) {
+                   if (value > 0.f) {
+                       this->camera.SetIsPerspective(!this->camera.IsPerspective());
+                   }
+                   return true;
+               }
             });
         }
         setupScene();
     }
 
     void Update(float deltaTime) override {
+        auto moveForwardAmount = _inputManager->GetActionValue("moveForward");
+        if (std::abs(moveForwardAmount) > 0.05f) {
+            camera.Translate(HE::Camera::MoveDirection::Forward, moveForwardAmount * movementSpeed);
+        }
 
+        auto strafeAmount = _inputManager->GetActionValue("strafe");
+        if (std::abs(strafeAmount) > 0.05f) {
+            camera.Translate(HE::Camera::MoveDirection::Right, strafeAmount * movementSpeed);
+        }
+
+        auto moveUpAmount = _inputManager->GetActionValue("moveUp");
+        camera.Translate(HE::Camera::MoveDirection::Up, moveUpAmount * movementSpeed);
+
+
+        auto lookXAmount = _inputManager->GetActionValue("lookX");
+        if (std::abs(lookXAmount) > 0.05f) {
+            camera.RotateBy(lookXAmount * lookSpeed, 0.f);
+        }
+
+        auto lookYAmount = _inputManager->GetActionValue("lookY");
+        if (std::abs(lookYAmount) > 0.05f) {
+            camera.RotateBy(0.f, lookYAmount * lookSpeed);
+        }
     }
 
 private:
@@ -155,17 +225,18 @@ private:
         HE::RenderCommand::SetClearColor({0.1f, 0.2f, 0.3f, 1.0f});
         HE::RenderCommand::Clear();
 
-        HE::ServiceLocator::GetRenderer()->BeginScene(cameraOrtho);
+        HE::ServiceLocator::GetRenderer()->BeginScene(camera);
         HE::ServiceLocator::GetRenderer()->Submit(shader, vertexArray);
         HE::ServiceLocator::GetRenderer()->EndScene();
 
     }
 private:
+    float movementSpeed = 0.1f;
+    float lookSpeed = 1.5f;
     std::shared_ptr<HE::Shader> shader;
     std::shared_ptr<HE::VertexArray> vertexArray = nullptr;
 
-    HE::PerspectiveCamera camera;
-    HE::OrthographicCamera cameraOrtho;
+    HE::Camera camera;
 
     HE::InputManager* _inputManager = nullptr;
 };
