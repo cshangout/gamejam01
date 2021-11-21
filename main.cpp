@@ -11,8 +11,9 @@ public:
         HE::Game(std::move(title)),
         camera(
             HE::Camera()
-        ) {
-
+        )
+        {
+        _desiredFPS = 60.f;
     }
 
 protected:
@@ -106,27 +107,31 @@ protected:
 
     void Update(float deltaTime) override {
         auto moveForwardAmount = _inputManager->GetActionValue("moveForward");
+
+        auto scaledSpeed = movementSpeed * deltaTime;
         if (std::abs(moveForwardAmount) > 0.05f) {
-            camera.Translate(HE::Camera::MoveDirection::Forward, moveForwardAmount * movementSpeed);
+            camera.Translate(HE::Camera::MoveDirection::Forward, moveForwardAmount * scaledSpeed);
         }
 
         auto strafeAmount = _inputManager->GetActionValue("strafe");
         if (std::abs(strafeAmount) > 0.05f) {
-            camera.Translate(HE::Camera::MoveDirection::Right, strafeAmount * movementSpeed);
+            camera.Translate(HE::Camera::MoveDirection::Right, strafeAmount * scaledSpeed);
         }
 
         auto moveUpAmount = _inputManager->GetActionValue("moveUp");
-        camera.Translate(HE::Camera::MoveDirection::Up, moveUpAmount * movementSpeed);
+        camera.Translate(HE::Camera::MoveDirection::Up, moveUpAmount * scaledSpeed);
 
+
+        auto scaledLookSpeed = lookSpeed * deltaTime;
 
         auto lookXAmount = _inputManager->GetActionValue("lookX");
         if (std::abs(lookXAmount) > 0.05f) {
-            camera.RotateBy(lookXAmount * lookSpeed, 0.f);
+            camera.RotateBy(lookXAmount * scaledLookSpeed, 0.f);
         }
 
         auto lookYAmount = _inputManager->GetActionValue("lookY");
         if (std::abs(lookYAmount) > 0.05f) {
-            camera.RotateBy(0.f, lookYAmount * lookSpeed);
+            camera.RotateBy(0.f, lookYAmount * scaledLookSpeed);
         }
     }
 
@@ -231,8 +236,8 @@ private:
 
     }
 private:
-    float movementSpeed = 0.1f;
-    float lookSpeed = 1.5f;
+    float movementSpeed = 10.f;
+    float lookSpeed = 180.f;
     std::shared_ptr<HE::Shader> shader;
     std::shared_ptr<HE::VertexArray> vertexArray = nullptr;
 
