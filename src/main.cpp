@@ -3,6 +3,7 @@
 #include <hangout_engine/rendering/render_command.h>
 #include <vector>
 #include <iostream>
+#include "game_object.h"
 
 
 class GameJamProject : public HE::Game {
@@ -133,28 +134,71 @@ protected:
         if (std::abs(lookYAmount) > 0.05f) {
             camera.RotateBy(0.f, lookYAmount * scaledLookSpeed);
         }
+
+        obj.SetRotation({0.f, static_cast<int>(totalTime) % 360, 0.f});
+        totalTime += 1;
     }
 
 private:
     void setupScene() {
         std::vector<HE::Vertex> vertices = {
                 {
-                    .position = {0.5f, 0.5f, 0.f},
+                    .position = {0.5f, 0.5f, 0.5f},
                     .color = {1.f, 0.f, 0.f, 1.f},
                     .uv = { 2.f, 2.f }
                 },
                 {
-                    .position = {0.5f, -0.5f, 0.f},
+                    .position = {0.5f, -0.5f, 0.5f},
                     .color = {0.f, 1.f, 0.f, 1.f},
                     .uv = { 2.f, 0.f }
                 },
                 {
-                    .position = {-0.5f, -0.5f, 0.f},
+                    .position = {-0.5f, -0.5f, 0.5f},
                     .color = {0.f, 0.f, 1.f, 1.f},
                     .uv = { 0.f, 0.f }
                 },
                 {
-                    .position = {-0.5f, 0.5f, 0.f},
+                    .position = {-0.5f, 0.5f, 0.5f},
+                    .color = {0.f, 0.f, 1.f, 1.f},
+                    .uv = { 0.f, 2.f }
+                },
+                {
+                    .position = {0.5f, 0.5f, -0.5f},
+                    .color = {1.f, 0.f, 0.f, 1.f},
+                    .uv = { 2.f, 2.f }
+                },
+                {
+                    .position = {0.5f, -0.5f, -0.5f},
+                    .color = {0.f, 1.f, 0.f, 1.f},
+                    .uv = { 2.f, 0.f }
+                },
+                {
+                    .position = {-0.5f, -0.5f, -0.5f},
+                    .color = {0.f, 0.f, 1.f, 1.f},
+                    .uv = { 0.f, 0.f }
+                },
+                {
+                    .position = {-0.5f, 0.5f, -0.5f},
+                    .color = {0.f, 0.f, 1.f, 1.f},
+                    .uv = { 0.f, 2.f }
+                },
+                {
+                    .position = {-0.5f, -0.5f, -0.5f},
+                    .color = {0.f, 0.f, 1.f, 1.f},
+                    .uv = { 0.f, 0.f }
+                },
+                {
+                    .position = {-0.5f, -0.5f, 0.5f},
+                    .color = {0.f, 1.f, 0.f, 1.f},
+                    .uv = { 2.f, 0.f }
+                },
+                {
+                    .position = {-0.5f, 0.5f, 0.5f},
+                    .color = {1.f, 0.f, 0.f, 1.f},
+                    .uv = { 2.f, 2.f }
+                },
+                {
+                    .position = {-0.5f, 0.5f, -0.5f},
                     .color = {0.f, 0.f, 1.f, 1.f},
                     .uv = { 0.f, 2.f }
                 }
@@ -162,7 +206,11 @@ private:
 
         std::vector<uint32_t> indices = {
                 0, 1, 3,
-                1, 2, 3
+                1, 2, 3,
+                7, 5, 4,
+                7, 6, 5,
+                11, 9, 8,
+                11, 10, 9
         };
 
         std::shared_ptr<HE::VertexBuffer> vertexBuffer = HE::ServiceLocator::GetRenderer()->CreateVertexBuffer();
@@ -181,7 +229,7 @@ private:
         indexBuffer->Bind();
         indexBuffer->UploadData(indices);
 
-        vertexArray = HE::ServiceLocator::GetRenderer()->CreateVertexArray();
+        auto vertexArray = HE::ServiceLocator::GetRenderer()->CreateVertexArray();
         vertexArray->AddVertexBuffer(vertexBuffer);
         vertexArray->AddIndexBuffer(indexBuffer);
 
@@ -210,7 +258,7 @@ private:
 
         texture2->UploadData(data);
 
-        shader = HE::ServiceLocator::GetRenderer()->CreateShader();
+        auto shader = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader->LoadAndCompile("shaders/basic.vs", "shaders/basic.fs" );
         shader->SetTextureSamplers({
             {
@@ -224,6 +272,11 @@ private:
                 .texture = texture,
             },
         });
+
+        obj.SetShader(std::move(shader));
+        obj.AddMesh(std::move(vertexArray));
+        obj.SetPosition({0.f, 1.f, 0.f});
+
     }
 
     void Render() override {
@@ -231,15 +284,16 @@ private:
         HE::RenderCommand::Clear();
 
         HE::ServiceLocator::GetRenderer()->BeginScene(camera);
-        HE::ServiceLocator::GetRenderer()->Submit(shader, vertexArray);
+        obj.Render();
         HE::ServiceLocator::GetRenderer()->EndScene();
 
     }
 private:
     float movementSpeed = 10.f;
     float lookSpeed = 180.f;
-    std::shared_ptr<HE::Shader> shader;
-    std::shared_ptr<HE::VertexArray> vertexArray = nullptr;
+    float totalTime = 0.f;
+
+    GameObject obj;
 
     HE::Camera camera;
 

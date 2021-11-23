@@ -21,7 +21,9 @@ endif()
 
 add_subdirectory(external/engine)
 
-add_executable(${PROJECT_NAME} main.cpp)
+file(GLOB_RECURSE SOURCES src/*.cpp)
+
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
@@ -31,6 +33,7 @@ target_link_libraries(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
     PUBLIC
         hangout-engine
+        src/
 )
 
 if( NOT ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
