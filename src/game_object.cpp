@@ -14,7 +14,7 @@ void GameObject::Render() {
         count += 2;
 
         glm::mat4 trans1 {1.f};
-//        trans1 *= glm::eulerAngleXYZ(-1 * glm::radians(static_cast<float>(count % 360)), 0.f, 0.f);
+        trans1 *= glm::eulerAngleXYZ(-1 * glm::radians(static_cast<float>(count % 360)), 0.f, 0.f);
 
         for (auto &mesh: _meshes) {
             glm::mat4 modelTransform {1.f};

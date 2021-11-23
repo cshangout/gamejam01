@@ -1,6 +1,7 @@
 #include <hangout_engine/platform/entry_point.h>
 
 #include <hangout_engine/rendering/render_command.h>
+#include <hangout_engine/utils/shapes.h>
 #include <vector>
 #include <iostream>
 #include "game_object.h"
@@ -135,83 +136,16 @@ protected:
             camera.RotateBy(0.f, lookYAmount * scaledLookSpeed);
         }
 
-        obj.SetRotation({0.f, static_cast<int>(totalTime) % 360, 0.f});
+        obj.SetRotation({0.f, static_cast<int>(totalTime/2) % 360, 0.f});
         totalTime += 1;
     }
 
 private:
     void setupScene() {
-        std::vector<HE::Vertex> vertices = {
-                {
-                    .position = {0.5f, 0.5f, 0.5f},
-                    .color = {1.f, 0.f, 0.f, 1.f},
-                    .uv = { 2.f, 2.f }
-                },
-                {
-                    .position = {0.5f, -0.5f, 0.5f},
-                    .color = {0.f, 1.f, 0.f, 1.f},
-                    .uv = { 2.f, 0.f }
-                },
-                {
-                    .position = {-0.5f, -0.5f, 0.5f},
-                    .color = {0.f, 0.f, 1.f, 1.f},
-                    .uv = { 0.f, 0.f }
-                },
-                {
-                    .position = {-0.5f, 0.5f, 0.5f},
-                    .color = {0.f, 0.f, 1.f, 1.f},
-                    .uv = { 0.f, 2.f }
-                },
-                {
-                    .position = {0.5f, 0.5f, -0.5f},
-                    .color = {1.f, 0.f, 0.f, 1.f},
-                    .uv = { 2.f, 2.f }
-                },
-                {
-                    .position = {0.5f, -0.5f, -0.5f},
-                    .color = {0.f, 1.f, 0.f, 1.f},
-                    .uv = { 2.f, 0.f }
-                },
-                {
-                    .position = {-0.5f, -0.5f, -0.5f},
-                    .color = {0.f, 0.f, 1.f, 1.f},
-                    .uv = { 0.f, 0.f }
-                },
-                {
-                    .position = {-0.5f, 0.5f, -0.5f},
-                    .color = {0.f, 0.f, 1.f, 1.f},
-                    .uv = { 0.f, 2.f }
-                },
-                {
-                    .position = {-0.5f, -0.5f, -0.5f},
-                    .color = {0.f, 0.f, 1.f, 1.f},
-                    .uv = { 0.f, 0.f }
-                },
-                {
-                    .position = {-0.5f, -0.5f, 0.5f},
-                    .color = {0.f, 1.f, 0.f, 1.f},
-                    .uv = { 2.f, 0.f }
-                },
-                {
-                    .position = {-0.5f, 0.5f, 0.5f},
-                    .color = {1.f, 0.f, 0.f, 1.f},
-                    .uv = { 2.f, 2.f }
-                },
-                {
-                    .position = {-0.5f, 0.5f, -0.5f},
-                    .color = {0.f, 0.f, 1.f, 1.f},
-                    .uv = { 0.f, 2.f }
-                }
-        };
 
-        std::vector<uint32_t> indices = {
-                0, 1, 3,
-                1, 2, 3,
-                7, 5, 4,
-                7, 6, 5,
-                11, 9, 8,
-                11, 10, 9
-        };
+        std::vector<HE::Vertex> vertices;
+        vertices.resize(HE::cubeNumVertices);
+        memcpy(vertices.data(), HE::cubeVertices, sizeof(HE::Vertex) * HE::cubeNumVertices);
 
         std::shared_ptr<HE::VertexBuffer> vertexBuffer = HE::ServiceLocator::GetRenderer()->CreateVertexBuffer();
         vertexBuffer->Bind();
@@ -224,6 +158,10 @@ private:
         };
 
         vertexBuffer->SetLayout(layout);
+
+        std::vector<uint32_t> indices;
+        indices.resize(HE::cubeNumIndices);
+        memcpy(indices.data(), HE::cubeIndices, sizeof(uint32_t) * HE::cubeNumIndices);
 
         auto indexBuffer = HE::ServiceLocator::GetRenderer()->CreateIndexBuffer();
         indexBuffer->Bind();
