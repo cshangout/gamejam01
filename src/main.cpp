@@ -4,7 +4,6 @@
 #include <hangout_engine/utils/shapes.h>
 #include <vector>
 #include <iostream>
-#include "game_object.h"
 
 
 class GameJamProject : public HE::Game {
@@ -12,7 +11,7 @@ public:
     explicit GameJamProject(std::string title) :
         HE::Game(std::move(title)),
         camera(
-            HE::Camera()
+            HE::Camera{}
         )
         {
         _desiredFPS = 60.f;
@@ -136,7 +135,8 @@ protected:
             camera.RotateBy(0.f, lookYAmount * scaledLookSpeed);
         }
 
-        obj.SetRotation({0.f, static_cast<int>(totalTime/2) % 360, 0.f});
+        auto &transform = entity->GetComponent<HE::TransformComponent>();
+        transform.SetRotation({static_cast<int>(totalTime) % 360, static_cast<int>(totalTime/2) % 360, 0.f});
         totalTime += 1;
     }
 
@@ -147,95 +147,62 @@ private:
         vertices.resize(HE::cubeNumVertices);
         memcpy(vertices.data(), HE::cubeVertices, sizeof(HE::Vertex) * HE::cubeNumVertices);
 
-        std::shared_ptr<HE::VertexBuffer> vertexBuffer = HE::ServiceLocator::GetRenderer()->CreateVertexBuffer();
-        vertexBuffer->Bind();
-        vertexBuffer->UploadData(vertices);
-
-        HE::BufferLayout layout = {
-                {HE::ShaderDataType::Float3, "aPos"},
-                {HE::ShaderDataType::Float4, "aColor"},
-                {HE::ShaderDataType::Float2, "aTexCoord"}
-        };
-
-        vertexBuffer->SetLayout(layout);
-
         std::vector<uint32_t> indices;
         indices.resize(HE::cubeNumIndices);
         memcpy(indices.data(), HE::cubeIndices, sizeof(uint32_t) * HE::cubeNumIndices);
 
-        auto indexBuffer = HE::ServiceLocator::GetRenderer()->CreateIndexBuffer();
-        indexBuffer->Bind();
-        indexBuffer->UploadData(indices);
-
-        auto vertexArray = HE::ServiceLocator::GetRenderer()->CreateVertexArray();
-        vertexArray->AddVertexBuffer(vertexBuffer);
-        vertexArray->AddIndexBuffer(indexBuffer);
-
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
         auto data = std::make_shared<HE::TextureData>("textures/container.jpeg");
         texture->Bind();
-        texture->BindSamplerSettings(HE::SamplerSettings{
-                .repeatModeS = HE::TextureWrapMode::ClampToBorder,
-                .repeatModeT = HE::TextureWrapMode::ClampToEdge,
-                .minFilter = HE::TextureFiltering::Linear,
-                .magFilter = HE::TextureFiltering::Linear,
-                .borderColor = {1.0f, 1.f, 1.f, 1.f }
-        });
+        texture->BindSamplerSettings(HE::SamplerSettings{});
         texture->UploadData(data);
 
         auto texture2 = HE::ServiceLocator::GetRenderer()->CreateTexture();
         data = std::make_shared<HE::TextureData>("textures/awesomeface.png", true);
         texture2->Bind();
-        texture2->BindSamplerSettings(HE::SamplerSettings{
-                .repeatModeS = HE::TextureWrapMode::ClampToBorder,
-                .repeatModeT = HE::TextureWrapMode::ClampToEdge,
-                .minFilter = HE::TextureFiltering::Linear,
-                .magFilter = HE::TextureFiltering::Linear,
-                .borderColor = {1.0f, 1.f, 1.f, 1.f }
-        });
-
+        texture2->BindSamplerSettings(HE::SamplerSettings{});
         texture2->UploadData(data);
+
+        entity = GetScene().CreateEntity();
+        auto& mesh = entity->AddComponent<HE::MeshComponent>(std::move(vertices), std::move(indices));
 
         auto shader = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader->LoadAndCompile("shaders/basic.vs", "shaders/basic.fs" );
         shader->SetTextureSamplers({
-            {
-                .samplerName = "smileTexture",
-                .index = HE::TextureBindingIndex::Texture0,
-                .texture = texture2,
-            },
-            {
-                .samplerName = "baseTexture",
-                .index = HE::TextureBindingIndex::Texture1,
-                .texture = texture,
-            },
-        });
+                 {
+                         .samplerName = "smileTexture",
+                         .index = HE::TextureBindingIndex::Texture0,
+                         .texture = texture2,
+                 },
+                 {
+                         .samplerName = "baseTexture",
+                         .index = HE::TextureBindingIndex::Texture1,
+                         .texture = texture,
+                 },
+         });
 
-        obj.SetShader(std::move(shader));
-        obj.AddMesh(std::move(vertexArray));
-        obj.SetPosition({0.f, 1.f, 0.f});
+        mesh.SetShader(std::move(shader));
 
+        auto& transform = entity->GetComponent<HE::TransformComponent>();
+        transform.SetPosition({0.f, 0.f, 0.f});
+
+        entity2 = GetScene().CreateEntity();
+        auto& mesh2 = entity2->AddComponent<HE::MeshComponent>(mesh);
+
+        auto& transform2 = entity2->GetComponent<HE::TransformComponent>();
+        transform2.SetPosition({1.5f, 0.f, 0.f});
     }
 
-    void Render() override {
-        HE::RenderCommand::SetClearColor({0.1f, 0.2f, 0.3f, 1.0f});
-        HE::RenderCommand::Clear();
-
-        HE::ServiceLocator::GetRenderer()->BeginScene(camera);
-        obj.Render();
-        HE::ServiceLocator::GetRenderer()->EndScene();
-
-    }
 private:
     float movementSpeed = 10.f;
     float lookSpeed = 180.f;
     float totalTime = 0.f;
 
-    GameObject obj;
-
     HE::Camera camera;
 
     HE::InputManager* _inputManager = nullptr;
+    HE::Entity* entity = nullptr;
+    HE::Entity* entity2 = nullptr;
 };
 
 HE::Game* HE::CreateGame() {
