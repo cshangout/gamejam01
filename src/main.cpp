@@ -4,15 +4,13 @@
 #include <hangout_engine/utils/shapes.h>
 #include <vector>
 #include <iostream>
+#include <hangout_engine/core/components/camera_component.h>
 
 
 class GameJamProject : public HE::Game {
 public:
     explicit GameJamProject(std::string title) :
-        HE::Game(std::move(title)),
-        camera(
-            HE::Camera{}
-        )
+        HE::Game(std::move(title))
         {
         _desiredFPS = 60.f;
     }
@@ -40,17 +38,17 @@ protected:
 
             _inputManager->MapInputToAction(HE::InputKey::KEY_W, HE::InputAction {
                     .ActionName = "moveForward",
-                    .Scale = 1.f
+                    .Scale = -1.f
             });
 
             _inputManager->MapInputToAction(HE::InputKey::KEY_S, HE::InputAction {
                     .ActionName = "moveForward",
-                    .Scale = -1.f
+                    .Scale = 1.f
             });
 
             _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_AXIS_LEFTY, HE::InputAction {
                     .ActionName = "moveForward",
-                    .Scale = -1.f
+                    .Scale = 1.f
             });
 
             _inputManager->MapInputToAction(HE::InputKey::KEY_E, HE::InputAction {
@@ -90,14 +88,17 @@ protected:
 
             _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_AXIS_RIGHTX, HE::InputAction {
                     .ActionName = "lookX",
-                    .Scale = 1.f
+                    .Scale = -1.f
             });
 
             _inputManager->RegisterActionCallback("changeCameraMode", HE::InputManager::ActionCallback {
                .Ref = "Hangouts",
                .Func = [this](HE::InputSource source, int index, float value) {
                    if (value > 0.f) {
-                       this->camera.SetIsPerspective(!this->camera.IsPerspective());
+                       if (camera) {
+                           auto& cameraComponent = camera->GetComponent<HE::CameraComponent>();
+                           cameraComponent.SetIsPerspective(!cameraComponent.IsPerspective());
+                       }
                    }
                    return true;
                }
@@ -106,38 +107,46 @@ protected:
         setupScene();
     }
 
-    void Update(float deltaTime) override {
+    void Update(double deltaTime) override {
+        auto& cameraTransform = camera->GetComponent<HE::TransformComponent>();
+
         auto moveForwardAmount = _inputManager->GetActionValue("moveForward");
 
         auto scaledSpeed = movementSpeed * deltaTime;
         if (std::abs(moveForwardAmount) > 0.05f) {
-            camera.Translate(HE::Camera::MoveDirection::Forward, moveForwardAmount * scaledSpeed);
+            cameraTransform.Translate(HE::MoveDirection::Forward, moveForwardAmount * scaledSpeed);
         }
 
         auto strafeAmount = _inputManager->GetActionValue("strafe");
         if (std::abs(strafeAmount) > 0.05f) {
-            camera.Translate(HE::Camera::MoveDirection::Right, strafeAmount * scaledSpeed);
+            cameraTransform.Translate(HE::MoveDirection::Right, strafeAmount * scaledSpeed);
         }
 
         auto moveUpAmount = _inputManager->GetActionValue("moveUp");
-        camera.Translate(HE::Camera::MoveDirection::Up, moveUpAmount * scaledSpeed);
+        cameraTransform.Translate(HE::MoveDirection::Up, moveUpAmount * scaledSpeed);
 
 
         auto scaledLookSpeed = lookSpeed * deltaTime;
 
         auto lookXAmount = _inputManager->GetActionValue("lookX");
         if (std::abs(lookXAmount) > 0.05f) {
-            camera.RotateBy(lookXAmount * scaledLookSpeed, 0.f);
+            cameraTransform.RotateBy(lookXAmount * scaledLookSpeed, 0.f);
         }
 
         auto lookYAmount = _inputManager->GetActionValue("lookY");
         if (std::abs(lookYAmount) > 0.05f) {
-            camera.RotateBy(0.f, lookYAmount * scaledLookSpeed);
+            cameraTransform.RotateBy(0.f, lookYAmount * scaledLookSpeed);
         }
 
         auto &transform = entity->GetComponent<HE::TransformComponent>();
-        transform.SetRotation({static_cast<int>(totalTime) % 360, static_cast<int>(totalTime/2) % 360, 0.f});
-        totalTime += 1;
+
+        float spd = -1.f;
+
+        transform.RotateBy(spd,0.f, spd);
+
+        if (deltaTime < 1.0) {
+            totalTime = totalTime + deltaTime;
+        }
     }
 
 private:
@@ -152,7 +161,7 @@ private:
         memcpy(indices.data(), HE::cubeIndices, sizeof(uint32_t) * HE::cubeNumIndices);
 
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
-        auto data = std::make_shared<HE::TextureData>("textures/container.jpeg");
+        auto data = std::make_shared<HE::TextureData>("textures/wallet.png");
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
         texture->UploadData(data);
@@ -191,18 +200,24 @@ private:
 
         auto& transform2 = entity2->GetComponent<HE::TransformComponent>();
         transform2.SetPosition({1.5f, 0.f, 0.f});
+
+        camera = GetScene().CreateEntity();
+        camera->AddComponent<HE::CameraComponent>();
+        auto& cameraTransform = camera->GetComponent<HE::TransformComponent>();
+        cameraTransform.SetPosition({0.f, 0.f, 5.f});
+
     }
 
 private:
     float movementSpeed = 10.f;
     float lookSpeed = 180.f;
-    float totalTime = 0.f;
-
-    HE::Camera camera;
+    double totalTime = 0.f;
 
     HE::InputManager* _inputManager = nullptr;
     HE::Entity* entity = nullptr;
     HE::Entity* entity2 = nullptr;
+    HE::Entity* camera = nullptr;
+
 };
 
 HE::Game* HE::CreateGame() {
