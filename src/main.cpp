@@ -161,7 +161,7 @@ private:
         memcpy(indices.data(), HE::cubeIndices, sizeof(uint32_t) * HE::cubeNumIndices);
 
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
-        auto data = std::make_shared<HE::TextureData>("textures/wallet.png");
+        auto data = std::make_shared<HE::TextureData>("textures/wallet.png", true);
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
         texture->UploadData(data);
