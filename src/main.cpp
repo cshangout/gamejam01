@@ -4,6 +4,7 @@
 #include <hangout_engine/utils/shapes.h>
 #include <vector>
 #include <hangout_engine/core/components/camera_component.h>
+#include "hangout_engine/core/components/light_component.h"
 
 class GameJamProject : public HE::Game {
 public:
@@ -15,6 +16,11 @@ public:
 
 protected:
     void Init() override {
+        GetScene().SetAmbientLightSettings({
+            .color = {0.5f, 0.5f, 0.5f},
+            .intensity = 0.75f,
+        });
+
         HE::ServiceLocator::GetWindow()->MakeContextCurrent();
 
         _inputManager = HE::ServiceLocator::GetInputManager();
@@ -133,7 +139,6 @@ protected:
         auto moveUpAmount = _inputManager->GetActionValue("moveUp");
         cameraTransform.Translate(HE::MoveDirection::Up, moveUpAmount * scaledSpeed);
 
-
         auto scaledLookSpeed = lookSpeed * deltaTime;
 
         auto lookXAmount = _inputManager->GetActionValue("lookX");
@@ -147,10 +152,12 @@ protected:
         }
 
         auto &transform = entity->GetComponent<HE::TransformComponent>();
+        auto &transform2 = light->GetComponent<HE::TransformComponent>();
 
         float spd = -1.f;
 
         transform.RotateBy(spd,0.f, spd);
+        transform2.SetPosition({0.f + std::sin(totalTime) * 2, 0.f, std::cos(totalTime) * 2});
 
         if (deltaTime < 1.0) {
             totalTime = totalTime + deltaTime;
@@ -169,16 +176,14 @@ private:
         memcpy(indices.data(), HE::cubeIndices, sizeof(uint32_t) * HE::cubeNumIndices);
 
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
-//        auto data = std::make_shared<HE::TextureData>("textures/wallet.png", true);
-        auto data = std::make_shared<HE::TextureData>(100, 100, glm::vec3{0.5f, 0.5f, 0.5f});
+        auto data = std::make_shared<HE::TextureData>(100, 100, glm::vec3{1.0f, 0.5f, 0.31f});
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
         texture->UploadData(data);
 
-
         auto texture2 = HE::ServiceLocator::GetRenderer()->CreateTexture();
-//        data = std::make_shared<HE::TextureData>("textures/awesomeface.png", true);
-        data = std::make_shared<HE::TextureData>("textures/awesomeface.png", true);
+        data = std::make_shared<HE::TextureData>(100, 100, glm::vec3{1.f, 1.f, 1.f});
+
         texture2->Bind();
         texture2->BindSamplerSettings(HE::SamplerSettings{});
         texture2->UploadData(data);
@@ -189,34 +194,43 @@ private:
         auto shader = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader->LoadAndCompile("shaders/basic.vs", "shaders/basic.fs" );
         shader->SetTextureSamplers({
-                 {
-                         .samplerName = "smileTexture",
-                         .index = HE::TextureBindingIndex::Texture0,
-                         .texture = texture2,
-                 },
-                 {
-                         .samplerName = "baseTexture",
-                         .index = HE::TextureBindingIndex::Texture1,
-                         .texture = texture,
-                 },
+            {
+                 .samplerName = "baseTexture",
+                 .index = HE::TextureBindingIndex::Texture0,
+                 .texture = texture,
+            }
          });
 
+        shader->Float3("lightColor", glm::vec3{1.f, 1.f, 1.f});
         mesh.SetShader(std::move(shader));
+
+        auto shader2 = HE::ServiceLocator::GetRenderer()->CreateShader();
+        shader2->LoadAndCompile("shaders/basic.vs", "shaders/light.fs" );
+        shader2->SetTextureSamplers({
+           {
+                   .samplerName = "baseTexture",
+                   .index = HE::TextureBindingIndex::Texture0,
+                   .texture = texture2,
+           }
+        });
+
+        shader2->Float3("lightColor", glm::vec3{1.f, 1.f, 1.f});
 
         auto& transform = entity->GetComponent<HE::TransformComponent>();
         transform.SetPosition({0.f, 0.f, 0.f});
 
-        entity2 = GetScene().CreateEntity();
-        auto& mesh2 = entity2->AddComponent<HE::MeshComponent>(mesh);
+        light = GetScene().CreateEntity();
+        auto& lightComponent = light->AddComponent<HE::LightComponent>();
+        auto& mesh2 = light->AddComponent<HE::MeshComponent>(std::move(vertices), std::move(indices));
+        mesh2.SetShader(shader2);
 
-        auto& transform2 = entity2->GetComponent<HE::TransformComponent>();
-        transform2.SetPosition({1.5f, 0.f, 0.f});
-
+        auto& transform2 = light->GetComponent<HE::TransformComponent>();
+        transform2.SetPosition({1.5f, 1.f, 1.f});
+        transform2.SetScale({0.25f, 0.25f, 0.25f});
         camera = GetScene().CreateEntity();
         camera->AddComponent<HE::CameraComponent>();
         auto& cameraTransform = camera->GetComponent<HE::TransformComponent>();
         cameraTransform.SetPosition({0.f, 0.f, 5.f});
-
     }
 
 private:
@@ -226,7 +240,7 @@ private:
 
     HE::InputManager* _inputManager = nullptr;
     HE::Entity* entity = nullptr;
-    HE::Entity* entity2 = nullptr;
+    HE::Entity* light = nullptr;
     HE::Entity* camera = nullptr;
 
 };
