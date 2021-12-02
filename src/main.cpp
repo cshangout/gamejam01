@@ -3,9 +3,7 @@
 #include <hangout_engine/rendering/render_command.h>
 #include <hangout_engine/utils/shapes.h>
 #include <vector>
-#include <iostream>
 #include <hangout_engine/core/components/camera_component.h>
-
 
 class GameJamProject : public HE::Game {
 public:
@@ -91,6 +89,16 @@ protected:
                     .Scale = -1.f
             });
 
+            _inputManager->MapInputToAction(HE::InputKey::MOUSE_MOVE_Y, HE::InputAction {
+                    .ActionName = "lookY",
+                    .Scale = -0.25f
+            });
+
+            _inputManager->MapInputToAction(HE::InputKey::MOUSE_MOVE_X, HE::InputAction {
+                    .ActionName = "lookX",
+                    .Scale = -0.25f
+            });
+
             _inputManager->RegisterActionCallback("changeCameraMode", HE::InputManager::ActionCallback {
                .Ref = "Hangouts",
                .Func = [this](HE::InputSource source, int index, float value) {
@@ -161,12 +169,15 @@ private:
         memcpy(indices.data(), HE::cubeIndices, sizeof(uint32_t) * HE::cubeNumIndices);
 
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
-        auto data = std::make_shared<HE::TextureData>("textures/wallet.png", true);
+//        auto data = std::make_shared<HE::TextureData>("textures/wallet.png", true);
+        auto data = std::make_shared<HE::TextureData>(100, 100, glm::vec3{0.5f, 0.5f, 0.5f});
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
         texture->UploadData(data);
 
+
         auto texture2 = HE::ServiceLocator::GetRenderer()->CreateTexture();
+//        data = std::make_shared<HE::TextureData>("textures/awesomeface.png", true);
         data = std::make_shared<HE::TextureData>("textures/awesomeface.png", true);
         texture2->Bind();
         texture2->BindSamplerSettings(HE::SamplerSettings{});
