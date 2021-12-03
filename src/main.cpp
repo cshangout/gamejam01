@@ -18,7 +18,7 @@ protected:
     void Init() override {
         GetScene().SetAmbientLightSettings({
             .color = {0.5f, 0.5f, 0.5f},
-            .intensity = 0.75f,
+            .intensity = 0.1f,
         });
 
         HE::ServiceLocator::GetWindow()->MakeContextCurrent();
@@ -142,12 +142,12 @@ protected:
         auto scaledLookSpeed = lookSpeed * deltaTime;
 
         auto lookXAmount = _inputManager->GetActionValue("lookX");
-        if (std::abs(lookXAmount) > 0.05f) {
+        if (std::abs(lookXAmount) > 0.05f && std::abs(lookXAmount) < 10.f) {
             cameraTransform.RotateBy(lookXAmount * scaledLookSpeed, 0.f);
         }
 
         auto lookYAmount = _inputManager->GetActionValue("lookY");
-        if (std::abs(lookYAmount) > 0.05f) {
+        if (std::abs(lookYAmount) > 0.05f && std::abs(lookYAmount) < 10.f) {
             cameraTransform.RotateBy(0.f, lookYAmount * scaledLookSpeed);
         }
 
@@ -155,9 +155,15 @@ protected:
         auto &transform2 = light->GetComponent<HE::TransformComponent>();
 
         float spd = -1.f;
+//        transform.RotateBy(spd,0.f, spd);
+        transform2.SetPosition({0.f + std::sin(totalTime), 0.5f, std::cos(totalTime)});
 
-        transform.RotateBy(spd,0.f, spd);
-        transform2.SetPosition({0.f + std::sin(totalTime) * 2, 0.f, std::cos(totalTime) * 2});
+        auto ambient = GetScene().GetAmbientLightSettings();
+        ambient.color.x = std::sin(totalTime * 2) + 0.5f;
+        ambient.color.y = std::sin(totalTime * 5) + 0.5f;
+        ambient.color.z = std::cos(totalTime / 2) + 0.5f;
+
+        GetScene().SetAmbientLightSettings(ambient);
 
         if (deltaTime < 1.0) {
             totalTime = totalTime + deltaTime;
@@ -176,7 +182,8 @@ private:
         memcpy(indices.data(), HE::cubeIndices, sizeof(uint32_t) * HE::cubeNumIndices);
 
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
-        auto data = std::make_shared<HE::TextureData>(100, 100, glm::vec3{1.0f, 0.5f, 0.31f});
+//        auto data = std::make_shared<HE::TextureData>(100, 100, glm::vec3{1.0f, 0.5f, 0.31f});
+        auto data = std::make_shared<HE::TextureData>("textures/wallet.png", true);
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
         texture->UploadData(data);
@@ -189,6 +196,9 @@ private:
         texture2->UploadData(data);
 
         entity = GetScene().CreateEntity();
+        auto& transform1 = entity->GetComponent<HE::TransformComponent>();
+        transform1.SetScale({1.f, 1.f, 0.1f});
+        transform1.SetRotation({0.f, -45.f, 0.f});
         auto& mesh = entity->AddComponent<HE::MeshComponent>(std::move(vertices), std::move(indices));
 
         auto shader = HE::ServiceLocator::GetRenderer()->CreateShader();
@@ -225,12 +235,14 @@ private:
         mesh2.SetShader(shader2);
 
         auto& transform2 = light->GetComponent<HE::TransformComponent>();
-        transform2.SetPosition({1.5f, 1.f, 1.f});
+        transform2.SetPosition({0.25f, 1.5f, -0.0f});
         transform2.SetScale({0.25f, 0.25f, 0.25f});
         camera = GetScene().CreateEntity();
         camera->AddComponent<HE::CameraComponent>();
         auto& cameraTransform = camera->GetComponent<HE::TransformComponent>();
         cameraTransform.SetPosition({0.f, 0.f, 5.f});
+
+
     }
 
 private:
