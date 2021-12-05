@@ -18,7 +18,7 @@ protected:
     void Init() override {
         GetScene().SetAmbientLightSettings({
             .color = {0.5f, 0.5f, 0.5f},
-            .intensity = 0.1f,
+            .intensity = 0.25f,
         });
 
         HE::ServiceLocator::GetWindow()->MakeContextCurrent();
@@ -156,14 +156,14 @@ protected:
 
         float spd = -1.f;
 //        transform.RotateBy(spd,0.f, spd);
-        transform2.SetPosition({0.f + std::sin(totalTime), 0.5f, std::cos(totalTime)});
+        transform2.SetPosition({0.f + std::sin(totalTime), 1.5f, std::cos(totalTime)});
 
         auto ambient = GetScene().GetAmbientLightSettings();
         ambient.color.x = std::sin(totalTime * 2) + 0.5f;
         ambient.color.y = std::sin(totalTime * 5) + 0.5f;
         ambient.color.z = std::cos(totalTime / 2) + 0.5f;
 
-        GetScene().SetAmbientLightSettings(ambient);
+//        GetScene().SetAmbientLightSettings(ambient);
 
         if (deltaTime < 1.0) {
             totalTime = totalTime + deltaTime;
@@ -174,16 +174,22 @@ private:
     void setupScene() {
 
         std::vector<HE::Vertex> vertices;
-        vertices.resize(HE::cubeNumVertices);
-        memcpy(vertices.data(), HE::cubeVertices, sizeof(HE::Vertex) * HE::cubeNumVertices);
+        vertices.resize(HE::pyramidNumVertices);
+        memcpy(vertices.data(), HE::pyramidVertices, sizeof(HE::Vertex) * HE::pyramidNumVertices);
 
         std::vector<uint32_t> indices;
-        indices.resize(HE::cubeNumIndices);
-        memcpy(indices.data(), HE::cubeIndices, sizeof(uint32_t) * HE::cubeNumIndices);
+        indices.resize(HE::pyramidNumIndices);
+        memcpy(indices.data(), HE::pyramidIndices, sizeof(uint32_t) * HE::pyramidNumIndices);
+
+
+        // Let's calculate our normals
+        for (int i = 0; i < indices.size(); i += 3) {
+            HE::getNormal(vertices[i + 2].position, vertices[i + 1].position, vertices[i].position, true);
+        }
 
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
 //        auto data = std::make_shared<HE::TextureData>(100, 100, glm::vec3{1.0f, 0.5f, 0.31f});
-        auto data = std::make_shared<HE::TextureData>("textures/wallet.png", true);
+        auto data = std::make_shared<HE::TextureData>("textures/brick.png", true);
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
         texture->UploadData(data);
@@ -197,8 +203,8 @@ private:
 
         entity = GetScene().CreateEntity();
         auto& transform1 = entity->GetComponent<HE::TransformComponent>();
-        transform1.SetScale({1.f, 1.f, 0.1f});
-        transform1.SetRotation({0.f, -45.f, 0.f});
+        transform1.SetScale({1.f, 1.f, 1.f});
+        transform1.SetRotation({0.f, 1.f, 0.f});
         auto& mesh = entity->AddComponent<HE::MeshComponent>(std::move(vertices), std::move(indices));
 
         auto shader = HE::ServiceLocator::GetRenderer()->CreateShader();
