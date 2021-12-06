@@ -16,11 +16,6 @@ public:
 
 protected:
     void Init() override {
-        GetScene().SetAmbientLightSettings({
-            .color = {0.5f, 0.5f, 0.5f},
-            .intensity = 0.25f,
-        });
-
         HE::ServiceLocator::GetWindow()->MakeContextCurrent();
 
         _inputManager = HE::ServiceLocator::GetInputManager();
@@ -153,17 +148,18 @@ protected:
 
         auto &transform = entity->GetComponent<HE::TransformComponent>();
         auto &transform2 = light->GetComponent<HE::TransformComponent>();
+        auto &lightComponent = light->GetComponent<HE::LightComponent>();
 
         float spd = -1.f;
 //        transform.RotateBy(spd,0.f, spd);
         transform2.SetPosition({0.f + std::sin(totalTime), 1.5f, std::cos(totalTime)});
 
-        auto ambient = GetScene().GetAmbientLightSettings();
-        ambient.color.x = std::sin(totalTime * 2) + 0.5f;
-        ambient.color.y = std::sin(totalTime * 5) + 0.5f;
-        ambient.color.z = std::cos(totalTime / 2) + 0.5f;
+//        lightComponent.AmbientColor.x = (std::sin(totalTime * 2) + 0.5f) * 0.1f;
+//        lightComponent.AmbientColor.z = (std::sin(totalTime * 4) + 0.5f) * 0.1f;
 
-//        GetScene().SetAmbientLightSettings(ambient);
+        lightComponent.DiffuseColor = { 0.25f, 0.75f, 1.f};
+
+//        GetScene().SetAmbientLightSettings(Ambient);
 
         if (deltaTime < 1.0) {
             totalTime = totalTime + deltaTime;
@@ -181,10 +177,9 @@ private:
         indices.resize(HE::pyramidNumIndices);
         memcpy(indices.data(), HE::pyramidIndices, sizeof(uint32_t) * HE::pyramidNumIndices);
 
-
         // Let's calculate our normals
         for (int i = 0; i < indices.size(); i += 3) {
-            HE::getNormal(vertices[i + 2].position, vertices[i + 1].position, vertices[i].position, true);
+            HE::getNormal(vertices[indices[i + 2]].position, vertices[indices[i + 1]].position, vertices[indices[i]].position, true);
         }
 
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
@@ -219,7 +214,7 @@ private:
 
         shader->Float3("lightColor", glm::vec3{1.f, 1.f, 1.f});
         mesh.SetShader(std::move(shader));
-
+        mesh.Mat.Shininess = 12.f;
         auto shader2 = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader2->LoadAndCompile("shaders/basic.vs", "shaders/light.fs" );
         shader2->SetTextureSamplers({
