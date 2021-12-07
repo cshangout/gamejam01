@@ -150,16 +150,7 @@ protected:
         auto &transform2 = light->GetComponent<HE::TransformComponent>();
         auto &lightComponent = light->GetComponent<HE::LightComponent>();
 
-        float spd = -1.f;
-//        transform.RotateBy(spd,0.f, spd);
         transform2.SetPosition({0.f + std::sin(totalTime), 1.5f, std::cos(totalTime)});
-
-//        lightComponent.AmbientColor.x = (std::sin(totalTime * 2) + 0.5f) * 0.1f;
-//        lightComponent.AmbientColor.z = (std::sin(totalTime * 4) + 0.5f) * 0.1f;
-
-        lightComponent.DiffuseColor = { 0.25f, 0.75f, 1.f};
-
-//        GetScene().SetAmbientLightSettings(Ambient);
 
         if (deltaTime < 1.0) {
             totalTime = totalTime + deltaTime;
@@ -187,14 +178,14 @@ private:
         auto data = std::make_shared<HE::TextureData>("textures/brick.png", true);
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
-        texture->UploadData(data);
+        texture->UploadData(data, HE::TextureTarget::TWOD);
 
         auto texture2 = HE::ServiceLocator::GetRenderer()->CreateTexture();
         data = std::make_shared<HE::TextureData>(100, 100, glm::vec3{1.f, 1.f, 1.f});
 
         texture2->Bind();
         texture2->BindSamplerSettings(HE::SamplerSettings{});
-        texture2->UploadData(data);
+        texture2->UploadData(data, HE::TextureTarget::TWOD);
 
         entity = GetScene().CreateEntity();
         auto& transform1 = entity->GetComponent<HE::TransformComponent>();
