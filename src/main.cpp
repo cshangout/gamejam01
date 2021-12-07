@@ -1,10 +1,11 @@
 #include <hangout_engine/platform/entry_point.h>
+#include <vector>
 
 #include <hangout_engine/rendering/render_command.h>
 #include <hangout_engine/utils/shapes.h>
-#include <vector>
 #include <hangout_engine/core/components/camera_component.h>
 #include "hangout_engine/core/components/light_component.h"
+#include "hangout_engine/core/components/skybox_component.h"
 
 class GameJamProject : public HE::Game {
 public:
@@ -159,29 +160,15 @@ protected:
 
 private:
     void setupScene() {
+        auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture(HE::TextureType::TWOD);
+        auto data = HE::TextureData(100, 100, glm::vec3{1.0f, 0.0f, 0.0f});
 
-        std::vector<HE::Vertex> vertices;
-        vertices.resize(HE::pyramidNumVertices);
-        memcpy(vertices.data(), HE::pyramidVertices, sizeof(HE::Vertex) * HE::pyramidNumVertices);
-
-        std::vector<uint32_t> indices;
-        indices.resize(HE::pyramidNumIndices);
-        memcpy(indices.data(), HE::pyramidIndices, sizeof(uint32_t) * HE::pyramidNumIndices);
-
-        // Let's calculate our normals
-        for (int i = 0; i < indices.size(); i += 3) {
-            HE::getNormal(vertices[indices[i + 2]].position, vertices[indices[i + 1]].position, vertices[indices[i]].position, true);
-        }
-
-        auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture();
-//        auto data = std::make_shared<HE::TextureData>(100, 100, glm::vec3{1.0f, 0.5f, 0.31f});
-        auto data = std::make_shared<HE::TextureData>("textures/brick.png", true);
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
         texture->UploadData(data, HE::TextureTarget::TWOD);
 
-        auto texture2 = HE::ServiceLocator::GetRenderer()->CreateTexture();
-        data = std::make_shared<HE::TextureData>(100, 100, glm::vec3{1.f, 1.f, 1.f});
+        auto texture2 = HE::ServiceLocator::GetRenderer()->CreateTexture(HE::TextureType::TWOD);
+        data = HE::TextureData(100, 100, glm::vec3{1.f, 1.f, 1.f});
 
         texture2->Bind();
         texture2->BindSamplerSettings(HE::SamplerSettings{});
@@ -191,7 +178,10 @@ private:
         auto& transform1 = entity->GetComponent<HE::TransformComponent>();
         transform1.SetScale({1.f, 1.f, 1.f});
         transform1.SetRotation({0.f, 1.f, 0.f});
-        auto& mesh = entity->AddComponent<HE::MeshComponent>(std::move(vertices), std::move(indices));
+        auto& mesh = entity->AddComponent<HE::MeshComponent>(
+                std::vector<HE::Vertex>(HE::pyramidVertices.begin(), HE::pyramidVertices.end()),
+                std::vector<uint32_t>(HE::pyramidIndices.begin(), HE::pyramidIndices.end())
+        );
 
         auto shader = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader->LoadAndCompile("shaders/basic.vs", "shaders/basic.fs" );
@@ -203,7 +193,6 @@ private:
             }
          });
 
-        shader->Float3("lightColor", glm::vec3{1.f, 1.f, 1.f});
         mesh.SetShader(std::move(shader));
         mesh.Mat.Shininess = 12.f;
         auto shader2 = HE::ServiceLocator::GetRenderer()->CreateShader();
@@ -216,14 +205,18 @@ private:
            }
         });
 
-        shader2->Float3("lightColor", glm::vec3{1.f, 1.f, 1.f});
 
         auto& transform = entity->GetComponent<HE::TransformComponent>();
         transform.SetPosition({0.f, 0.f, 0.f});
 
         light = GetScene().CreateEntity();
         auto& lightComponent = light->AddComponent<HE::LightComponent>();
-        auto& mesh2 = light->AddComponent<HE::MeshComponent>(std::move(vertices), std::move(indices));
+
+        auto& mesh2 = light->AddComponent<HE::MeshComponent>(
+            std::vector<HE::Vertex>(HE::cubeVertices.begin(), HE::cubeVertices.end()),
+            std::vector<uint32_t>(HE::cubeIndices.begin(), HE::cubeIndices.end())
+        );
+
         mesh2.SetShader(shader2);
 
         auto& transform2 = light->GetComponent<HE::TransformComponent>();
@@ -234,6 +227,16 @@ private:
         auto& cameraTransform = camera->GetComponent<HE::TransformComponent>();
         cameraTransform.SetPosition({0.f, 0.f, 5.f});
 
+        skybox = GetScene().CreateEntity();
+        auto& transformBox = skybox->GetComponent<HE::TransformComponent>();
+        transformBox.SetScale({2.f, 2.f, 2.f});
+        auto& skyboxComp = skybox->AddComponent<HE::SkyboxComponent>();
+        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/right.jpg", false), HE::TextureTarget::CUBEMAP_POS_X);
+        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/left.jpg", false), HE::TextureTarget::CUBEMAP_NEG_X);
+        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/top.jpg", false), HE::TextureTarget::CUBEMAP_POS_Y);
+        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/bottom.jpg", false), HE::TextureTarget::CUBEMAP_NEG_Y);
+        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/front.jpg", false), HE::TextureTarget::CUBEMAP_POS_Z);
+        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/back.jpg", false), HE::TextureTarget::CUBEMAP_NEG_Z);
 
     }
 
@@ -246,6 +249,7 @@ private:
     HE::Entity* entity = nullptr;
     HE::Entity* light = nullptr;
     HE::Entity* camera = nullptr;
+    HE::Entity* skybox = nullptr;
 
 };
 
