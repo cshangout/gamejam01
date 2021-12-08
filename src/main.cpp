@@ -161,7 +161,8 @@ protected:
 private:
     void setupScene() {
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture(HE::TextureType::TWOD);
-        auto data = HE::TextureData(100, 100, glm::vec3{1.0f, 0.0f, 0.0f});
+        auto data = HE::TextureData("textures/container.jpeg", true);
+//        auto data = HE::TextureData(100, 100, glm::vec3{1.f, 0.25f, 0.25f});
 
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
@@ -179,8 +180,8 @@ private:
         transform1.SetScale({1.f, 1.f, 1.f});
         transform1.SetRotation({0.f, 1.f, 0.f});
         auto& mesh = entity->AddComponent<HE::MeshComponent>(
-                std::vector<HE::Vertex>(HE::pyramidVertices.begin(), HE::pyramidVertices.end()),
-                std::vector<uint32_t>(HE::pyramidIndices.begin(), HE::pyramidIndices.end())
+                std::vector<HE::Vertex>(HE::cubeVertices.begin(), HE::cubeVertices.end()),
+                std::vector<uint32_t>(HE::cubeIndices.begin(), HE::cubeIndices.end())
         );
 
         auto shader = HE::ServiceLocator::GetRenderer()->CreateShader();
@@ -194,7 +195,8 @@ private:
          });
 
         mesh.SetShader(std::move(shader));
-        mesh.Mat.Shininess = 12.f;
+        mesh.Mat.Shininess = 256.f;
+        mesh.Mat.Reflectivity = 0.25f;
         auto shader2 = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader2->LoadAndCompile("shaders/basic.vs", "shaders/light.fs" );
         shader2->SetTextureSamplers({
@@ -204,7 +206,6 @@ private:
                    .texture = texture2,
            }
         });
-
 
         auto& transform = entity->GetComponent<HE::TransformComponent>();
         transform.SetPosition({0.f, 0.f, 0.f});
@@ -227,17 +228,12 @@ private:
         auto& cameraTransform = camera->GetComponent<HE::TransformComponent>();
         cameraTransform.SetPosition({0.f, 0.f, 5.f});
 
-        skybox = GetScene().CreateEntity();
-        auto& transformBox = skybox->GetComponent<HE::TransformComponent>();
-        transformBox.SetScale({2.f, 2.f, 2.f});
-        auto& skyboxComp = skybox->AddComponent<HE::SkyboxComponent>();
-        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/right.jpg", false), HE::TextureTarget::CUBEMAP_POS_X);
-        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/left.jpg", false), HE::TextureTarget::CUBEMAP_NEG_X);
-        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/top.jpg", false), HE::TextureTarget::CUBEMAP_POS_Y);
-        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/bottom.jpg", false), HE::TextureTarget::CUBEMAP_NEG_Y);
-        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/front.jpg", false), HE::TextureTarget::CUBEMAP_POS_Z);
-        skyboxComp.SetTextureFace(HE::TextureData("textures/skybox/back.jpg", false), HE::TextureTarget::CUBEMAP_NEG_Z);
-
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/right.jpg", false), HE::TextureTarget::CUBEMAP_POS_X);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/left.jpg", false), HE::TextureTarget::CUBEMAP_NEG_X);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/top.jpg", false), HE::TextureTarget::CUBEMAP_POS_Y);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/bottom.jpg", false), HE::TextureTarget::CUBEMAP_NEG_Y);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/front.jpg", false), HE::TextureTarget::CUBEMAP_POS_Z);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/back.jpg", false), HE::TextureTarget::CUBEMAP_NEG_Z);
     }
 
 private:
