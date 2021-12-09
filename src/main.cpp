@@ -71,6 +71,15 @@ protected:
                     .Scale = 1.f
             });
 
+            _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_BUTTON_DPAD_UP, HE::InputAction {
+                    .ActionName = "reflect",
+                    .Scale = 1.f
+            });
+            _inputManager->MapInputToAction(HE::InputKey::CONTROLLER_BUTTON_DPAD_DOWN, HE::InputAction {
+                    .ActionName = "reflect",
+                    .Scale = -1.f
+            });
+
             _inputManager->MapInputToAction(HE::InputKey::KEY_C, HE::InputAction {
                     .ActionName = "changeCameraMode",
                     .Scale = 1.f
@@ -147,11 +156,16 @@ protected:
             cameraTransform.RotateBy(0.f, lookYAmount * scaledLookSpeed);
         }
 
+        auto reflectChangeAmount = _inputManager->GetActionValue("reflect") * deltaTime;
+        auto& objectmesh = entity->GetComponent<HE::MeshComponent>();
+        objectmesh.Mat.Reflectivity += reflectChangeAmount;
+
         auto &transform = entity->GetComponent<HE::TransformComponent>();
         auto &transform2 = light->GetComponent<HE::TransformComponent>();
         auto &lightComponent = light->GetComponent<HE::LightComponent>();
 
         transform2.SetPosition({0.f + std::sin(totalTime), 1.5f, std::cos(totalTime)});
+
 
         if (deltaTime < 1.0) {
             totalTime = totalTime + deltaTime;
@@ -161,8 +175,8 @@ protected:
 private:
     void setupScene() {
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture(HE::TextureType::TWOD);
-        auto data = HE::TextureData("textures/container.jpeg", true);
-//        auto data = HE::TextureData(100, 100, glm::vec3{1.f, 0.25f, 0.25f});
+        auto data = HE::TextureData("textures/wallet.png", true);
+//        auto data = HE::TextureData(100, 100, glm::vec3{1.f, 1.f, 1.f});
 
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
@@ -179,9 +193,19 @@ private:
         auto& transform1 = entity->GetComponent<HE::TransformComponent>();
         transform1.SetScale({1.f, 1.f, 1.f});
         transform1.SetRotation({0.f, 1.f, 0.f});
+
+        auto [sphereVertices, sphereIndices] = HE::GenerateSphere();
+
+        for (auto index : sphereIndices) {
+            if (index >= sphereVertices.size()) {
+                std::cout << "Too big!" << std::endl;
+            }
+        }
+
+
         auto& mesh = entity->AddComponent<HE::MeshComponent>(
-                std::vector<HE::Vertex>(HE::cubeVertices.begin(), HE::cubeVertices.end()),
-                std::vector<uint32_t>(HE::cubeIndices.begin(), HE::cubeIndices.end())
+                std::vector<HE::Vertex>(sphereVertices.begin(), sphereVertices.end()),
+                std::vector<uint32_t>(sphereIndices.begin(), sphereIndices.end())
         );
 
         auto shader = HE::ServiceLocator::GetRenderer()->CreateShader();
@@ -212,7 +236,7 @@ private:
 
         light = GetScene().CreateEntity();
         auto& lightComponent = light->AddComponent<HE::LightComponent>();
-
+        lightComponent.AmbientColor = {0.1f, 0.1f, 0.1f};
         auto& mesh2 = light->AddComponent<HE::MeshComponent>(
             std::vector<HE::Vertex>(HE::cubeVertices.begin(), HE::cubeVertices.end()),
             std::vector<uint32_t>(HE::cubeIndices.begin(), HE::cubeIndices.end())
@@ -227,6 +251,14 @@ private:
         camera->AddComponent<HE::CameraComponent>();
         auto& cameraTransform = camera->GetComponent<HE::TransformComponent>();
         cameraTransform.SetPosition({0.f, 0.f, 5.f});
+
+//        GetScene().EnableSkybox();
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {1.f, 0.f, 0.f}), HE::TextureTarget::CUBEMAP_POS_X);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {0.f, 1.f, 1.f}), HE::TextureTarget::CUBEMAP_NEG_X);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {1.f, 0.f, 1.f}), HE::TextureTarget::CUBEMAP_POS_Y);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {0.f, 0.f, 1.f}), HE::TextureTarget::CUBEMAP_NEG_Y);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {0.f, 1.f, 0.f}), HE::TextureTarget::CUBEMAP_POS_Z);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {0.f, 0.f, 0.f}), HE::TextureTarget::CUBEMAP_NEG_Z);
 
         GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/right.jpg", false), HE::TextureTarget::CUBEMAP_POS_X);
         GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/left.jpg", false), HE::TextureTarget::CUBEMAP_NEG_X);

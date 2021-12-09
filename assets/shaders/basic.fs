@@ -45,7 +45,7 @@ void main() {
     vec3 ambience = material.ambient * light.ambientColor;
 
     vec3 R = reflect(viewDir, normalize(Normal));
-    vec4 albedo = (texture(baseTexture, TexCoord) ) + (texture(skyboxTexture, R) * material.reflectivity);
+    vec4 albedo = (texture(baseTexture, TexCoord)) + (texture(skyboxTexture, R) * material.reflectivity);
 //* (1 - material.reflectivity)
 //    vec4 albedo = texture(baseTexture, TexCoord);
 
