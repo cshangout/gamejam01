@@ -158,13 +158,13 @@ protected:
 
         auto reflectChangeAmount = _inputManager->GetActionValue("reflect") * deltaTime;
         auto& objectmesh = entity->GetComponent<HE::MeshComponent>();
-        objectmesh.Mat.Reflectivity += reflectChangeAmount;
+        objectmesh.Mat.Shininess += reflectChangeAmount;
 
         auto &transform = entity->GetComponent<HE::TransformComponent>();
         auto &transform2 = light->GetComponent<HE::TransformComponent>();
         auto &lightComponent = light->GetComponent<HE::LightComponent>();
 
-        transform2.SetPosition({0.f + std::sin(totalTime), 1.5f, std::cos(totalTime)});
+        transform2.SetPosition({2.f * std::sin(totalTime), 1.5f, 2.f * std::cos(totalTime)});
 
         if (deltaTime < 1.0) {
             totalTime = totalTime + deltaTime;
@@ -174,15 +174,20 @@ protected:
 private:
     void setupScene() {
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture(HE::TextureType::TWOD);
-        auto data = HE::TextureData("textures/wallet.png", true);
-//        auto data = HE::TextureData(100, 100, glm::vec3{1.f, 0.f, 0.f});
+        auto data = HE::TextureData("textures/container.png", true);
 
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
         texture->UploadData(data, HE::TextureTarget::TWOD);
 
+        data = HE::TextureData("textures/container-specular.png", true);
+        auto specularTexture = HE::ServiceLocator::GetRenderer()->CreateTexture(HE::TextureType::TWOD);
+        specularTexture->Bind();
+        specularTexture->BindSamplerSettings(HE::SamplerSettings{});
+        specularTexture->UploadData(data, HE::TextureTarget::TWOD);
+
         auto texture2 = HE::ServiceLocator::GetRenderer()->CreateTexture(HE::TextureType::TWOD);
-        data = HE::TextureData(100, 100, glm::vec3{1.f, 1.f, 1.f});
+        data = HE::TextureData(100, 100, glm::vec3{1.f, 0.f, 1.f});
 
         texture2->Bind();
         texture2->BindSamplerSettings(HE::SamplerSettings{});
@@ -201,7 +206,6 @@ private:
             }
         }
 
-
         auto& mesh = entity->AddComponent<HE::MeshComponent>(
                 std::vector<HE::Vertex>(sphereVertices.begin(), sphereVertices.end()),
                 std::vector<uint32_t>(sphereIndices.begin(), sphereIndices.end())
@@ -209,40 +213,19 @@ private:
 
         auto shader = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader->LoadAndCompile("shaders/basic.vs", "shaders/basic.fs" );
-        shader->SetTextureSamplers({
-            {
-                 .samplerName = "baseTexture",
-                 .index = HE::TextureBindingIndex::Texture0,
-                 .texture = texture,
-            }
-         });
 
         mesh.SetShader(std::move(shader));
-        mesh.Mat.Shininess = 256.f;
-        mesh.Mat.Reflectivity = 0.25f;
+        mesh.Mat.DiffuseTexture = texture;
+        mesh.Mat.SpecularTexture = specularTexture;
+        mesh.Mat.Shininess = 0.01f;
+
         auto shader2 = HE::ServiceLocator::GetRenderer()->CreateShader();
         shader2->LoadAndCompile("shaders/basic.vs", "shaders/light.fs" );
-        shader2->SetTextureSamplers({
-           {
-                   .samplerName = "baseTexture",
-                   .index = HE::TextureBindingIndex::Texture0,
-                   .texture = texture2,
-           }
-        });
 
         auto& transform = entity->GetComponent<HE::TransformComponent>();
-//        transform.SetPosition({5.f, 1.f, 0.f});
-//        transform.SetScale({1.f, 1.f, 1.f});
         light = GetScene().CreateEntity();
         auto& lightComponent = light->AddComponent<HE::LightComponent>();
         lightComponent.AmbientColor = {0.5f, 0.5f, 0.5f};
-        auto& mesh2 = light->AddComponent<HE::MeshComponent>(
-            std::vector<HE::Vertex>(HE::cubeVertices.begin(), HE::cubeVertices.end()),
-            std::vector<uint32_t>(HE::cubeIndices.begin(), HE::cubeIndices.end())
-        );
-
-
-        mesh2.SetShader(shader2);
 
         auto& transform2 = light->GetComponent<HE::TransformComponent>();
         transform2.SetPosition({0.25f, 1.5f, -0.0f});
