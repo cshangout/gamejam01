@@ -166,7 +166,6 @@ protected:
 
         transform2.SetPosition({0.f + std::sin(totalTime), 1.5f, std::cos(totalTime)});
 
-
         if (deltaTime < 1.0) {
             totalTime = totalTime + deltaTime;
         }
@@ -176,7 +175,7 @@ private:
     void setupScene() {
         auto texture = HE::ServiceLocator::GetRenderer()->CreateTexture(HE::TextureType::TWOD);
         auto data = HE::TextureData("textures/wallet.png", true);
-//        auto data = HE::TextureData(100, 100, glm::vec3{1.f, 1.f, 1.f});
+//        auto data = HE::TextureData(100, 100, glm::vec3{1.f, 0.f, 0.f});
 
         texture->Bind();
         texture->BindSamplerSettings(HE::SamplerSettings{});
@@ -232,15 +231,16 @@ private:
         });
 
         auto& transform = entity->GetComponent<HE::TransformComponent>();
-        transform.SetPosition({0.f, 0.f, 0.f});
-
+//        transform.SetPosition({5.f, 1.f, 0.f});
+//        transform.SetScale({1.f, 1.f, 1.f});
         light = GetScene().CreateEntity();
         auto& lightComponent = light->AddComponent<HE::LightComponent>();
-        lightComponent.AmbientColor = {0.1f, 0.1f, 0.1f};
+        lightComponent.AmbientColor = {0.5f, 0.5f, 0.5f};
         auto& mesh2 = light->AddComponent<HE::MeshComponent>(
             std::vector<HE::Vertex>(HE::cubeVertices.begin(), HE::cubeVertices.end()),
             std::vector<uint32_t>(HE::cubeIndices.begin(), HE::cubeIndices.end())
         );
+
 
         mesh2.SetShader(shader2);
 
@@ -253,19 +253,19 @@ private:
         cameraTransform.SetPosition({0.f, 0.f, 5.f});
 
 //        GetScene().EnableSkybox();
-//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {1.f, 0.f, 0.f}), HE::TextureTarget::CUBEMAP_POS_X);
-//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {0.f, 1.f, 1.f}), HE::TextureTarget::CUBEMAP_NEG_X);
-//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {1.f, 0.f, 1.f}), HE::TextureTarget::CUBEMAP_POS_Y);
-//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {0.f, 0.f, 1.f}), HE::TextureTarget::CUBEMAP_NEG_Y);
-//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {0.f, 1.f, 0.f}), HE::TextureTarget::CUBEMAP_POS_Z);
-//        GetScene().SetSkyboxTextureFace(HE::TextureData(100, 100, {0.f, 0.f, 0.f}), HE::TextureTarget::CUBEMAP_NEG_Z);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(16, 16, {1.f, 0.f, 0.f}), HE::TextureTarget::CUBEMAP_POS_X);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(16, 16, {0.f, 1.f, 1.f}), HE::TextureTarget::CUBEMAP_NEG_X);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(16, 16, {1.f, 0.f, 1.f}), HE::TextureTarget::CUBEMAP_POS_Y);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(16, 16, {0.f, 0.f, 1.f}), HE::TextureTarget::CUBEMAP_NEG_Y);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(16, 16, {0.f, 1.f, 0.f}), HE::TextureTarget::CUBEMAP_POS_Z);
+//        GetScene().SetSkyboxTextureFace(HE::TextureData(16, 16, {0.f, 0.f, 0.f}), HE::TextureTarget::CUBEMAP_NEG_Z);
 
-        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/right.jpg", false), HE::TextureTarget::CUBEMAP_POS_X);
-        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/left.jpg", false), HE::TextureTarget::CUBEMAP_NEG_X);
-        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/top.jpg", false), HE::TextureTarget::CUBEMAP_POS_Y);
-        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/bottom.jpg", false), HE::TextureTarget::CUBEMAP_NEG_Y);
-        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/front.jpg", false), HE::TextureTarget::CUBEMAP_POS_Z);
-        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/skybox/back.jpg", false), HE::TextureTarget::CUBEMAP_NEG_Z);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/bucket.png", false), HE::TextureTarget::CUBEMAP_POS_X);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/bucket.png", false), HE::TextureTarget::CUBEMAP_NEG_X);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/bucket.png", false), HE::TextureTarget::CUBEMAP_POS_Y);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/bucket.png", false), HE::TextureTarget::CUBEMAP_NEG_Y);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/bucket.png", false), HE::TextureTarget::CUBEMAP_POS_Z);
+        GetScene().SetSkyboxTextureFace(HE::TextureData("textures/bucket.png", false), HE::TextureTarget::CUBEMAP_NEG_Z);
     }
 
 private:
